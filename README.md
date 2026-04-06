@@ -1,43 +1,70 @@
-# Astro Starter Kit: Minimal
+# savyasachi.dev
 
-```sh
-npm create astro@latest -- --template minimal
+Personal portfolio site for Savyasachi Jagadeeshan — Senior Software Engineer & Technical Lead.
+
+Live: https://savyasachi.dev
+
+## Stack
+
+- **Astro 6** — static output with Vercel adapter for the Spotify serverless endpoint
+- **Tailwind CSS v4** — via `@tailwindcss/vite`
+- **TypeScript** — strict, data files only
+- **Vercel** — auto-deploys on push to `main`
+- **Formspree** — contact form (no backend)
+
+## Dev
+
+```bash
+npm install
+npm run dev      # localhost:4321
+npm run build    # → dist/
+npm run preview  # preview built output
 ```
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+## Project structure
 
-## 🚀 Project Structure
-
-Inside of your Astro project, you'll see the following folders and files:
-
-```text
-/
-├── public/
-├── src/
-│   └── pages/
-│       └── index.astro
-└── package.json
+```
+src/
+  data/               — all content (edit here to update copy)
+    experience.ts     — work history
+    projects.ts       — side projects
+    skills.ts         — skill categories
+    education.ts      — degrees
+  components/
+    sections/         — one file per page section
+    ui/               — reusable card/pill components
+  layouts/
+    BaseLayout.astro  — HTML shell, fonts, global.css
+  pages/
+    index.astro       — single page
+    api/spotify.ts    — serverless endpoint for Spotify now-playing
+  styles/
+    global.css        — @import tailwindcss + CSS custom properties
+public/
+  resume.pdf          — linked from Hero CTA
+docs/
+  spotify-setup.md    — one-time Spotify OAuth setup instructions
 ```
 
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
+## Updating content
 
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
+| What | Where |
+|------|-------|
+| Work experience | `src/data/experience.ts` |
+| Projects | `src/data/projects.ts` |
+| Skills | `src/data/skills.ts` |
+| Education | `src/data/education.ts` |
+| Resume PDF | Replace `public/resume.pdf` (keep filename) |
+| Contact form ID | `src/components/sections/Contact.astro` — replace `FORM_ID` |
 
-Any static assets, like images, can be placed in the `public/` directory.
+## Integrations
 
-## 🧞 Commands
+**Goodreads** — fetched at build time from public RSS feeds. No API key needed. Updates on every deploy.
 
-All commands are run from the root of the project, from a terminal:
+**Spotify** — live now-playing via `/api/spotify` serverless function. Requires three env vars. See `docs/spotify-setup.md`.
 
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
+## Deploy
 
-## 👀 Want to learn more?
+Push to `main` → Vercel auto-deploys. Build command: `npm run build`. Output: `dist/`.
 
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+Spotify env vars (`SPOTIFY_CLIENT_ID`, `SPOTIFY_CLIENT_SECRET`, `SPOTIFY_REFRESH_TOKEN`) must be set in Vercel project settings.
