@@ -53,7 +53,22 @@ const stars = (n: number) => '★'.repeat(n) + '☆'.repeat(5 - n);
     >
       Beyond the IDE
     </h2>
-    <p class="text-sm mb-16" style="color: var(--color-text-muted);">What I'm reading, watching, and listening to.</p>
+    <p class="text-sm mb-12" style="color: var(--color-text-muted);">What I'm reading and listening to.</p>
+
+    <!-- Spotify -->
+    <div class="mb-14">
+      <h3 class="text-xs font-semibold uppercase tracking-widest mb-6" style="color: var(--color-text-muted);">
+        Spotify
+      </h3>
+      <div id="spotify-card" class="inline-flex items-center gap-4 p-4 rounded-xl border backdrop-blur-sm" style="border-color: var(--color-border); background: color-mix(in srgb, var(--color-surface) 70%, transparent); min-width: 280px;">
+        <!-- skeleton -->
+        <div class="w-14 h-14 rounded-md shrink-0 animate-pulse" style="background: var(--color-border);"></div>
+        <div class="flex flex-col gap-2 flex-1">
+          <div class="h-3 rounded animate-pulse w-3/4" style="background: var(--color-border);"></div>
+          <div class="h-2.5 rounded animate-pulse w-1/2" style="background: var(--color-border);"></div>
+        </div>
+      </div>
+    </div>
 
     <!-- Currently Reading -->
     {currentlyReading.length > 0 && (
@@ -137,3 +152,56 @@ const stars = (n: number) => '★'.repeat(n) + '☆'.repeat(5 - n);
     )}
   </div>
 </section>
+
+<script>
+  async function loadSpotify() {
+    const card = document.getElementById('spotify-card');
+    if (!card) return;
+
+    try {
+      const res = await fetch('/api/spotify');
+      const data = await res.json();
+
+      if (!data.title) {
+        card.innerHTML = `<span style="font-size:0.8rem; color: var(--color-text-muted);">Nothing playing right now.</span>`;
+        return;
+      }
+
+      const playing = data.isPlaying;
+      const dot = playing
+        ? `<span style="display:inline-block;width:7px;height:7px;border-radius:50%;background:#1db954;animation:spotify-pulse 1.5s ease-in-out infinite;"></span>`
+        : '';
+
+      card.outerHTML = `
+        <a href="${data.songUrl}" target="_blank" rel="noopener noreferrer"
+           id="spotify-card"
+           style="display:inline-flex;align-items:center;gap:1rem;padding:1rem;border-radius:0.75rem;border:1px solid var(--color-border);backdrop-filter:blur(4px);background:color-mix(in srgb, var(--color-surface) 70%, transparent);text-decoration:none;transition:border-color .2s,box-shadow .2s;"
+           onmouseenter="this.style.borderColor='var(--color-accent)';this.style.boxShadow='0 4px 24px var(--color-accent-glow)'"
+           onmouseleave="this.style.borderColor='var(--color-border)';this.style.boxShadow='none'"
+        >
+          <img src="${data.albumArt}" alt="${data.album}" width="56" height="56"
+               style="border-radius:6px;object-fit:cover;flex-shrink:0;box-shadow:0 2px 8px rgba(0,0,0,0.4);" />
+          <div style="display:flex;flex-direction:column;gap:3px;min-width:0;">
+            <span style="display:flex;align-items:center;gap:6px;font-size:0.875rem;font-weight:500;color:var(--color-text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">
+              ${dot} ${data.title}
+            </span>
+            <span style="font-size:0.75rem;color:var(--color-text-muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${data.artist}</span>
+            <span style="font-size:0.7rem;color:var(--color-text-muted);opacity:0.7;">${playing ? 'Listening now' : 'Last played'}</span>
+          </div>
+        </a>
+      `;
+    } catch {
+      const card2 = document.getElementById('spotify-card');
+      if (card2) card2.innerHTML = `<span style="font-size:0.8rem;color:var(--color-text-muted);">Couldn't load Spotify.</span>`;
+    }
+  }
+
+  loadSpotify();
+</script>
+
+<style is:global>
+  @keyframes spotify-pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50%       { opacity: 0.5; transform: scale(0.85); }
+  }
+</style>
