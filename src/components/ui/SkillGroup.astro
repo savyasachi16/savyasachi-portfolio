@@ -1,0 +1,28 @@
+---
+import type { SkillCategory } from '../../data/skills';
+
+interface Props {
+  category: SkillCategory;
+}
+
+const { category } = Astro.props;
+---
+
+<div>
+  <h3
+    class="text-xs font-semibold uppercase tracking-widest mb-3"
+    style="color: var(--color-text-muted);"
+  >
+    {category.label}
+  </h3>
+  <div class="flex flex-wrap gap-2">
+    {category.skills.map((skill) => (
+      <span
+        class="px-3 py-1 text-sm rounded-full border transition-all duration-150 cursor-default hover:border-[var(--color-accent)]"
+        style="border-color: var(--color-border); color: var(--color-text-muted); background: color-mix(in srgb, var(--color-accent-glow) 40%, transparent);"
+      >
+        {skill}
+      </span>
+    ))}
+  </div>
+</div>

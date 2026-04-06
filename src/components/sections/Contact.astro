@@ -1,0 +1,53 @@
+---
+import SocialLink from '../ui/SocialLink.astro';
+---
+
+<section id="contact" class="py-24 border-t border-[var(--color-border)]">
+  <div class="max-w-6xl mx-auto px-6">
+    <h2 class="text-3xl font-semibold text-[var(--color-text)] mb-4">Get in touch</h2>
+    <p class="text-[var(--color-text-muted)] mb-12 max-w-lg">
+      Open to new opportunities. Feel free to reach out.
+    </p>
+
+    <form
+      action="https://formspree.io/f/FORM_ID"
+      method="POST"
+      class="flex flex-col gap-4 max-w-lg mb-16"
+    >
+      <input
+        type="text"
+        name="name"
+        placeholder="Name"
+        required
+        class="px-4 py-3 rounded-lg border border-[var(--color-border)] bg-[var(--color-surface)] text-[var(--color-text)] placeholder:text-[var(--color-text-muted)] text-sm focus:outline-none focus:border-[var(--color-accent)] transition-colors"
+      />
+      <input
+        type="email"
+        name="email"
+        placeholder="Email"
+        required
+        class="px-4 py-3 rounded-lg border border-[var(--color-border)] bg-[var(--color-surface)] text-[var(--color-text)] placeholder:text-[var(--color-text-muted)] text-sm focus:outline-none focus:border-[var(--color-accent)] transition-colors"
+      />
+      <textarea
+        name="message"
+        placeholder="Message"
+        rows="5"
+        required
+        class="px-4 py-3 rounded-lg border border-[var(--color-border)] bg-[var(--color-surface)] text-[var(--color-text)] placeholder:text-[var(--color-text-muted)] text-sm focus:outline-none focus:border-[var(--color-accent)] transition-colors resize-none"
+      ></textarea>
+      <input type="hidden" name="_subject" value="Portfolio Contact" />
+      <button
+        type="submit"
+        class="self-start px-5 py-2.5 rounded-lg bg-[var(--color-accent)] text-white text-sm font-medium hover:opacity-90 transition-opacity"
+      >
+        Send message
+      </button>
+    </form>
+
+    <div class="flex flex-wrap gap-3">
+      <SocialLink href="https://github.com/savyasachi16" label="GitHub" />
+      <SocialLink href="https://linkedin.com/in/jsavyasachi/" label="LinkedIn" />
+      <SocialLink href="mailto:jsavyasachi@gmail.com" label="Email" />
+    </div>
+  </div>
+</section>

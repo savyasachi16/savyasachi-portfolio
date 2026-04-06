@@ -1,12 +1,13 @@
 @import "tailwindcss";
 
 :root {
-  --color-bg: #0f0f0f;
-  --color-surface: #1a1a1a;
-  --color-text: #e5e5e5;
-  --color-text-muted: #a3a3a3;
-  --color-accent: #6366f1;
-  --color-border: #2a2a2a;
+  --color-bg: #0c0f14;
+  --color-surface: #131820;
+  --color-text: #e8edf5;
+  --color-text-muted: #8a9ab5;
+  --color-accent: #7eb8f7;
+  --color-accent-glow: rgba(126, 184, 247, 0.15);
+  --color-border: #1e2a3a;
 }
 
 html {
@@ -14,4 +15,14 @@ html {
   font-family: 'Inter', system-ui, sans-serif;
   background-color: var(--color-bg);
   color: var(--color-text);
+}
+
+body {
+  background-image: radial-gradient(circle, var(--color-border) 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+
+@keyframes orb-pulse {
+  0%, 100% { transform: scale(1);   opacity: 0.6; }
+  50%       { transform: scale(1.2); opacity: 1;   }
 }

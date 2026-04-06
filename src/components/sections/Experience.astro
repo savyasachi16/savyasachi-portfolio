@@ -1,0 +1,15 @@
+---
+import { experiences } from '../../data/experience';
+import ExperienceCard from '../ui/ExperienceCard.astro';
+---
+
+<section id="experience" class="py-24">
+  <div class="max-w-6xl mx-auto px-6">
+    <h2 class="text-3xl font-semibold text-[var(--color-text)] mb-16">Experience</h2>
+    <div class="flex flex-col gap-12">
+      {experiences.map((exp) => (
+        <ExperienceCard experience={exp} />
+      ))}
+    </div>
+  </div>
+</section>

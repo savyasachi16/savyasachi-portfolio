@@ -1,0 +1,69 @@
+---
+---
+
+<header class="sticky top-0 z-50 border-b border-[var(--color-border)] bg-[var(--color-bg)]/90 backdrop-blur-sm transition-colors duration-200">
+  <nav class="max-w-6xl mx-auto px-6 h-14 flex items-center justify-between">
+    <a href="/" class="text-sm font-semibold tracking-wide transition-colors hover:text-[var(--color-accent)]" style="color: var(--color-text); font-family: 'Syne', sans-serif;">
+      Savyasachi Jagadeeshan
+    </a>
+    <div class="flex items-center gap-6">
+      <ul class="flex items-center gap-6">
+        <li><a href="#experience" class="text-sm transition-colors hover:text-[var(--color-text)]" style="color: var(--color-text-muted);">Experience</a></li>
+        <li><a href="#projects"   class="text-sm transition-colors hover:text-[var(--color-text)]" style="color: var(--color-text-muted);">Projects</a></li>
+        <li><a href="#skills"     class="text-sm transition-colors hover:text-[var(--color-text)]" style="color: var(--color-text-muted);">Skills</a></li>
+        <li><a href="#education"  class="text-sm transition-colors hover:text-[var(--color-text)]" style="color: var(--color-text-muted);">Education</a></li>
+        <li><a href="#contact"    class="text-sm transition-colors hover:text-[var(--color-text)]" style="color: var(--color-text-muted);">Contact</a></li>
+      </ul>
+
+      <button
+        id="theme-toggle"
+        aria-label="Toggle light/dark mode"
+        class="w-8 h-8 flex items-center justify-center rounded-md border transition-colors hover:border-[var(--color-accent)]"
+        style="border-color: var(--color-border); color: var(--color-text-muted);"
+      >
+        <!-- Sun icon (shown in dark mode, click to go light) -->
+        <svg id="icon-sun" xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/>
+        </svg>
+        <!-- Moon icon (shown in light mode, click to go dark) -->
+        <svg id="icon-moon" xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="hidden">
+          <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/>
+        </svg>
+      </button>
+    </div>
+  </nav>
+</header>
+
+<script>
+  function initTheme() {
+    const btn = document.getElementById('theme-toggle');
+    const sun  = document.getElementById('icon-sun');
+    const moon = document.getElementById('icon-moon');
+
+    function updateIcon(theme: string) {
+      if (theme === 'light') {
+        sun?.classList.add('hidden');
+        moon?.classList.remove('hidden');
+      } else {
+        sun?.classList.remove('hidden');
+        moon?.classList.add('hidden');
+      }
+    }
+
+    // On load, system default if no stored pref
+    const stored = localStorage.getItem('theme');
+    const system = window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+    const current = stored || system;
+    document.documentElement.setAttribute('data-theme', current);
+    updateIcon(current);
+
+    btn?.addEventListener('click', () => {
+      const next = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+      document.documentElement.setAttribute('data-theme', next);
+      localStorage.setItem('theme', next);
+      updateIcon(next);
+    });
+  }
+
+  initTheme();
+</script>

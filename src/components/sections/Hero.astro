@@ -1,0 +1,81 @@
+---
+---
+
+<section class="relative min-h-[calc(100vh-3.5rem)] flex items-center overflow-hidden">
+  <!-- Gradient orbs -->
+  <div
+    class="pointer-events-none absolute -top-32 -left-32 w-[500px] h-[500px] rounded-full"
+    style="background: var(--color-accent-glow); filter: blur(80px); animation: orb-pulse 8s ease-in-out infinite;"
+  ></div>
+  <div
+    class="pointer-events-none absolute -bottom-32 -right-16 w-[400px] h-[400px] rounded-full"
+    style="background: var(--color-accent-glow); filter: blur(80px); animation: orb-pulse 8s ease-in-out infinite; animation-delay: 4s;"
+  ></div>
+
+  <div class="relative z-10 max-w-6xl mx-auto px-6 py-24 w-full">
+    <p class="text-sm font-medium mb-4 tracking-widest uppercase" style="color: var(--color-accent);">
+      Hello, I'm
+    </p>
+
+    <h1
+      class="text-5xl md:text-7xl font-bold tracking-tight mb-4"
+      style="font-family: 'Syne', sans-serif; color: var(--color-text);"
+    >
+      Savyasachi<br />Jagadeeshan
+    </h1>
+
+    <h2 class="text-xl md:text-2xl font-medium mb-6" style="color: var(--color-text-muted);">
+      Senior Software Engineer &amp; Technical Lead
+    </h2>
+
+    <p class="text-base max-w-xl leading-relaxed mb-10" style="color: var(--color-text-muted);">
+      8 years building backend systems and APIs. Based in the San Francisco Bay Area.
+    </p>
+
+    <div class="flex flex-wrap gap-4 mb-12">
+      <a
+        href="#experience"
+        class="px-5 py-2.5 rounded-lg text-sm font-medium transition-opacity hover:opacity-90"
+        style="background: var(--color-accent); color: var(--color-bg);"
+      >
+        View my work
+      </a>
+      <a
+        href="/resume.pdf"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="px-5 py-2.5 rounded-lg border text-sm font-medium transition-colors"
+        style="border-color: var(--color-border); color: var(--color-text-muted);"
+        onmouseenter="this.style.borderColor='var(--color-accent)'; this.style.color='var(--color-text)'"
+        onmouseleave="this.style.borderColor='var(--color-border)'; this.style.color='var(--color-text-muted)'"
+      >
+        Download Resume
+      </a>
+    </div>
+
+    <div class="flex gap-4">
+      <a
+        href="https://github.com/savyasachi16"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="text-sm transition-colors"
+        style="color: var(--color-text-muted);"
+        onmouseenter="this.style.color='var(--color-text)'"
+        onmouseleave="this.style.color='var(--color-text-muted)'"
+      >
+        GitHub ↗
+      </a>
+      <a
+        href="https://linkedin.com/in/jsavyasachi/"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="text-sm transition-colors"
+        style="color: var(--color-text-muted);"
+        onmouseenter="this.style.color='var(--color-text)'"
+        onmouseleave="this.style.color='var(--color-text-muted)'"
+      >
+        LinkedIn ↗
+      </a>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,15 @@
+---
+import { projects } from '../../data/projects';
+import ProjectCard from '../ui/ProjectCard.astro';
+---
+
+<section id="projects" class="py-24 border-t border-[var(--color-border)]">
+  <div class="max-w-6xl mx-auto px-6">
+    <h2 class="text-3xl font-semibold text-[var(--color-text)] mb-16">Projects</h2>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+      {projects.map((project) => (
+        <ProjectCard project={project} />
+      ))}
+    </div>
+  </div>
+</section>
