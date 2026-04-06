@@ -1,0 +1,139 @@
+---
+interface Book {
+  title: string;
+  author: string;
+  cover: string;
+  rating: number;
+  link: string;
+}
+
+function parseRSS(xml: string): Book[] {
+  const items = xml.match(/<item>([\s\S]*?)<\/item>/g) ?? [];
+  return items.map((item) => {
+    const tag = (name: string) => {
+      const m =
+        item.match(new RegExp(`<${name}[^>]*><!\\[CDATA\\[([\\s\\S]*?)\\]\\]><\\/${name}>`)) ??
+        item.match(new RegExp(`<${name}[^>]*>([\\s\\S]*?)<\\/${name}>`));
+      return (m?.[1] ?? '').trim();
+    };
+    const cover = tag('book_image_url').replace(/_S[XY]\d+_/, '_SX98_');
+    return {
+      title: tag('title'),
+      author: tag('author_name'),
+      cover,
+      rating: parseInt(tag('user_rating')) || 0,
+      link: item.match(/<link>([\s\S]*?)<\/link>/)?.[1]?.trim() ?? '',
+    };
+  });
+}
+
+async function fetchShelf(shelf: string, limit = 8): Promise<Book[]> {
+  try {
+    const res = await fetch(
+      `https://www.goodreads.com/review/list_rss/62623007?shelf=${shelf}&sort=date_read&per_page=${limit}`
+    );
+    const xml = await res.text();
+    return parseRSS(xml).slice(0, limit);
+  } catch {
+    return [];
+  }
+}
+
+const currentlyReading = await fetchShelf('currently-reading', 4);
+const recentlyRead = await fetchShelf('read', 8);
+
+const stars = (n: number) => '★'.repeat(n) + '☆'.repeat(5 - n);
+---
+
+<section id="beyond" class="py-24 border-t border-[var(--color-border)]">
+  <div class="max-w-6xl mx-auto px-6">
+    <h2
+      class="text-3xl font-semibold mb-2"
+      style="font-family: 'Syne', sans-serif; color: var(--color-text);"
+    >
+      Beyond the IDE
+    </h2>
+    <p class="text-sm mb-16" style="color: var(--color-text-muted);">What I'm reading, watching, and listening to.</p>
+
+    <!-- Currently Reading -->
+    {currentlyReading.length > 0 && (
+      <div class="mb-14">
+        <h3 class="text-xs font-semibold uppercase tracking-widest mb-6" style="color: var(--color-text-muted);">
+          Currently Reading
+        </h3>
+        <div class="flex flex-wrap gap-4">
+          {currentlyReading.map((book) => (
+            <a
+              href={book.link}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="flex gap-4 p-4 rounded-xl border backdrop-blur-sm transition-all duration-200 max-w-xs"
+              style="border-color: var(--color-border); background: color-mix(in srgb, var(--color-surface) 70%, transparent);"
+              onmouseenter="this.style.borderColor='var(--color-accent)'; this.style.boxShadow='0 4px 24px var(--color-accent-glow)'"
+              onmouseleave="this.style.borderColor='var(--color-border)'; this.style.boxShadow='none'"
+            >
+              {book.cover && (
+                <img
+                  src={book.cover}
+                  alt={book.title}
+                  width="64"
+                  height="98"
+                  class="rounded object-cover shrink-0"
+                  style="box-shadow: 0 2px 8px rgba(0,0,0,0.4);"
+                />
+              )}
+              <div class="flex flex-col justify-center gap-1 min-w-0">
+                <span class="text-sm font-medium leading-snug" style="color: var(--color-text);">{book.title}</span>
+                <span class="text-xs" style="color: var(--color-text-muted);">{book.author}</span>
+                <span class="text-xs mt-1" style="color: var(--color-accent);">reading now</span>
+              </div>
+            </a>
+          ))}
+        </div>
+      </div>
+    )}
+
+    <!-- Recently Read -->
+    {recentlyRead.length > 0 && (
+      <div>
+        <h3 class="text-xs font-semibold uppercase tracking-widest mb-6" style="color: var(--color-text-muted);">
+          Recently Read
+        </h3>
+        <div class="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 gap-3">
+          {recentlyRead.map((book) => (
+            <a
+              href={book.link}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="group flex flex-col gap-2 transition-transform duration-150 hover:-translate-y-1"
+              title={`${book.title} — ${book.author}`}
+            >
+              {book.cover ? (
+                <img
+                  src={book.cover}
+                  alt={book.title}
+                  width="98"
+                  height="148"
+                  class="rounded-md w-full object-cover"
+                  style="box-shadow: 0 2px 8px rgba(0,0,0,0.4); aspect-ratio: 2/3;"
+                />
+              ) : (
+                <div
+                  class="rounded-md w-full flex items-center justify-center text-xs text-center p-2"
+                  style="aspect-ratio: 2/3; background: var(--color-surface); color: var(--color-text-muted); border: 1px solid var(--color-border);"
+                >
+                  {book.title}
+                </div>
+              )}
+              {book.rating > 0 && (
+                <span class="text-[10px] tracking-tight" style="color: var(--color-accent);">
+                  {stars(book.rating)}
+                </span>
+              )}
+            </a>
+          ))}
+        </div>
+      </div>
+    )}
+  </div>
+</section>
