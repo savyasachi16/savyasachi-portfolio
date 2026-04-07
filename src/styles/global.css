@@ -23,8 +23,8 @@ body {
   background-size: 24px 24px;
 }
 
-h2 {
-  font-family: 'Fraunces', Georgia, serif;
+h2, h3 {
+  font-family: 'Syne', sans-serif;
 }
 
 @keyframes orb-pulse {
