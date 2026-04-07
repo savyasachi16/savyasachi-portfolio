@@ -1,11 +1,11 @@
-You are helping update the savyasachi.dev portfolio after a resume change.
+You are helping update the portfolio site after a resume change.
 
 ## What to do
 
 The user will invoke this skill with a path to a new resume PDF, e.g.:
-`/update-resume ~/Downloads/Resume_Savyasachi_Jagadeeshan.pdf`
+`/update-resume ~/Downloads/Resume.pdf`
 
-If no path is provided, default to: `~/Downloads/Resume_Savyasachi_Jagadeeshan.pdf`
+If no path is provided, ask the user for the PDF path.
 
 ### Step 1 — Read the PDF
 
