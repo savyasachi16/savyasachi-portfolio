@@ -85,8 +85,8 @@ const stars = (n: number) => '★'.repeat(n) + '☆'.repeat(5 - n);
       <h3 class="text-xs font-semibold uppercase tracking-widest mb-6" style="color: var(--color-text-muted);">
         Spotify
       </h3>
-      <div class="flex flex-col gap-3 w-full max-w-sm">
-        <div id="spotify-card" class="flex items-center gap-4 p-4 rounded-xl border backdrop-blur-sm" style="border-color: var(--color-border); background: color-mix(in srgb, var(--color-surface) 70%, transparent);">
+      <div class="flex flex-col sm:flex-row gap-4">
+        <div id="spotify-card" class="flex items-center gap-4 p-4 rounded-xl border backdrop-blur-sm shrink-0" style="border-color: var(--color-border); background: color-mix(in srgb, var(--color-surface) 70%, transparent); width: 100%; max-width: 20rem;">
           <!-- skeleton -->
           <div class="w-14 h-14 rounded-md shrink-0 animate-pulse" style="background: var(--color-border);"></div>
           <div class="flex flex-col gap-2 flex-1">
@@ -94,7 +94,9 @@ const stars = (n: number) => '★'.repeat(n) + '☆'.repeat(5 - n);
             <div class="h-2.5 rounded animate-pulse w-1/2" style="background: var(--color-border);"></div>
           </div>
         </div>
-        <div id="top-tracks" class="flex flex-col">
+        <div class="flex flex-col flex-1">
+          <span class="text-xs font-semibold uppercase tracking-widest mb-3" style="color: var(--color-text-muted);">Top Tracks — All Time</span>
+        <div id="top-tracks" class="flex flex-col justify-center">
           {Array.from({ length: 5 }).map(() => (
             <div class="flex items-center gap-3 px-3 py-2 rounded-lg">
               <div class="w-8 h-8 rounded shrink-0 animate-pulse" style="background: var(--color-border);"></div>
@@ -104,6 +106,7 @@ const stars = (n: number) => '★'.repeat(n) + '☆'.repeat(5 - n);
               </div>
             </div>
           ))}
+        </div>
         </div>
       </div>
     </div>
