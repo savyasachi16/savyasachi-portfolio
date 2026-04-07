@@ -26,7 +26,7 @@ const wallets = [
             href={link.href}
             target={link.href.startsWith('mailto') || link.href.startsWith('/') ? undefined : '_blank'}
             rel={link.href.startsWith('http') ? 'noopener noreferrer' : undefined}
-            class="transition-colors hover:text-[var(--color-text)]"
+            class="transition-all hover:text-[var(--color-accent)]"
             style="color: var(--color-text-muted);"
           >
             {link.label}
@@ -39,7 +39,7 @@ const wallets = [
       <div class="relative">
         <button
           id="tip-jar-btn"
-          class="transition-colors hover:text-[var(--color-text)]"
+          class="transition-all hover:text-[var(--color-accent)]"
           style="color: var(--color-text-muted); background: none; border: none; cursor: pointer; font-size: inherit; padding: 0; font-family: inherit;"
         >
           Tip Jar
@@ -58,8 +58,10 @@ const wallets = [
           <div class="flex gap-2">
             {wallets.map((w) => (
               <button
-                class="tip-trigger flex-1 py-1.5 rounded-lg text-xs font-semibold border transition-colors hover:border-[var(--color-accent)] hover:text-[var(--color-accent)]"
-                style="border-color: var(--color-border); color: var(--color-text-muted); background: none; cursor: pointer; font-family: inherit;"
+                class="tip-trigger flex-1 py-1.5 rounded-lg text-xs font-semibold border transition-all"
+                style={`border-color: var(--color-border); color: var(--color-text-muted); background: none; cursor: pointer; font-family: inherit;`}
+                onmouseenter={`this.style.borderColor='${w.color}';this.style.color='${w.color}';this.style.background='${w.color}18';`}
+                onmouseleave="this.style.borderColor='var(--color-border)';this.style.color='var(--color-text-muted)';this.style.background='none';"
                 data-id={w.id}
               >
                 {w.label}
