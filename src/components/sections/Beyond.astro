@@ -1,4 +1,6 @@
 ---
+import { config } from '../../data/config';
+
 interface Book {
   title: string;
   author: string;
@@ -30,7 +32,7 @@ function parseRSS(xml: string): Book[] {
 async function fetchShelf(shelf: string, limit = 8): Promise<Book[]> {
   try {
     const res = await fetch(
-      `https://www.goodreads.com/review/list_rss/62623007?shelf=${shelf}&sort=date_read&per_page=${limit}`
+      `https://www.goodreads.com/review/list_rss/${config.goodreadsUserId}?shelf=${shelf}&sort=date_read&per_page=${limit}`
     );
     const xml = await res.text();
     return parseRSS(xml).slice(0, limit);

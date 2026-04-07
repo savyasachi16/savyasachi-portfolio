@@ -1,8 +1,10 @@
 ---
+import { config } from '../data/config';
+const fullName = `${config.name.first} ${config.name.last}`;
 ---
 
 <footer class="border-t border-[var(--color-border)] py-8">
   <div class="max-w-4xl mx-auto px-6 text-center text-sm text-[var(--color-text-muted)]">
-    &copy; {new Date().getFullYear()} Savyasachi Jagadeeshan
+    &copy; {new Date().getFullYear()} {fullName}
   </div>
 </footer>

@@ -1,4 +1,6 @@
 ---
+import { config } from '../../data/config';
+const { name, bio, social, titles } = config;
 ---
 
 <section class="relative min-h-[calc(100vh-3.5rem)] flex items-center overflow-hidden">
@@ -21,18 +23,23 @@
       class="text-5xl md:text-7xl font-bold tracking-tight mb-4"
       style="font-family: 'Syne', sans-serif; color: var(--color-text);"
     >
-      <span id="hero-name-text"></span><span id="hero-cursor" class="hero-cursor">|</span>
+      <span id="hero-name-text" data-first={name.first} data-last={name.last}></span><span id="hero-cursor" class="hero-cursor">|</span>
     </h1>
-    <p class="text-lg mb-6 -mt-2" style="color: var(--color-text-muted); font-family: 'Syne', sans-serif;">but everyone calls me Savy</p>
+    <p class="text-lg mb-6 -mt-2" style="color: var(--color-text-muted); font-family: 'Syne', sans-serif;">but everyone calls me {name.nickname}</p>
 
     <div class="flex flex-wrap gap-2 mb-6">
-      <span class="px-3 py-1 text-sm rounded-full border font-medium" style="border-color: var(--color-accent); color: var(--color-accent); background: var(--color-accent-glow);">Technical Lead</span>
-      <span class="px-3 py-1 text-sm rounded-full border font-medium" style="border-color: var(--color-border); color: var(--color-text-muted);">Senior Software Engineer</span>
-      <span class="px-3 py-1 text-sm rounded-full border font-medium" style="border-color: var(--color-border); color: var(--color-text-muted);">Backend Engineer</span>
+      {titles.map((t, i) => (
+        <span
+          class="px-3 py-1 text-sm rounded-full border font-medium"
+          style={i === 0
+            ? 'border-color: var(--color-accent); color: var(--color-accent); background: var(--color-accent-glow);'
+            : 'border-color: var(--color-border); color: var(--color-text-muted);'}
+        >{t}</span>
+      ))}
     </div>
 
     <p class="text-base max-w-xl leading-relaxed mb-10" style="color: var(--color-text-muted);">
-      Been building backend systems and APIs for 8 years. Currently in the Bay Area.
+      {bio}
     </p>
 
     <div class="flex flex-wrap gap-4 mb-12">
@@ -57,28 +64,32 @@
     </div>
 
     <div class="flex gap-4">
-      <a
-        href="https://github.com/savyasachi16"
-        target="_blank"
-        rel="noopener noreferrer"
-        class="text-sm transition-colors"
-        style="color: var(--color-text-muted);"
-        onmouseenter="this.style.color='var(--color-text)'"
-        onmouseleave="this.style.color='var(--color-text-muted)'"
-      >
-        GitHub ↗
-      </a>
-      <a
-        href="https://linkedin.com/in/jsavyasachi/"
-        target="_blank"
-        rel="noopener noreferrer"
-        class="text-sm transition-colors"
-        style="color: var(--color-text-muted);"
-        onmouseenter="this.style.color='var(--color-text)'"
-        onmouseleave="this.style.color='var(--color-text-muted)'"
-      >
-        LinkedIn ↗
-      </a>
+      {social.github && (
+        <a
+          href={social.github}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="text-sm transition-colors"
+          style="color: var(--color-text-muted);"
+          onmouseenter="this.style.color='var(--color-text)'"
+          onmouseleave="this.style.color='var(--color-text-muted)'"
+        >
+          GitHub ↗
+        </a>
+      )}
+      {social.linkedin && (
+        <a
+          href={social.linkedin}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="text-sm transition-colors"
+          style="color: var(--color-text-muted);"
+          onmouseenter="this.style.color='var(--color-text)'"
+          onmouseleave="this.style.color='var(--color-text-muted)'"
+        >
+          LinkedIn ↗
+        </a>
+      )}
     </div>
   </div>
 </section>
@@ -97,9 +108,9 @@
 </style>
 
 <script>
-  const nameEl = document.getElementById('hero-name-text')!;
-  const part1 = 'Savyasachi';
-  const part2 = 'Jagadeeshan';
+  const nameEl = document.getElementById('hero-name-text') as HTMLElement;
+  const part1 = nameEl.dataset.first ?? '';
+  const part2 = nameEl.dataset.last ?? '';
   const speed = 80;
 
   function sleep(ms: number) {

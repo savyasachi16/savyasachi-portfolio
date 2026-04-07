@@ -1,10 +1,12 @@
 ---
+import { config } from '../data/config';
+const fullName = `${config.name.first} ${config.name.last}`;
 ---
 
 <header class="sticky top-0 z-50 border-b border-[var(--color-border)] bg-[var(--color-bg)]/90 backdrop-blur-sm transition-colors duration-200">
   <nav class="max-w-6xl mx-auto px-6 h-14 flex items-center justify-between">
     <a href="/" class="text-sm font-semibold tracking-wide transition-colors hover:text-[var(--color-accent)]" style="color: var(--color-text); font-family: 'Syne', sans-serif;">
-      Savyasachi Jagadeeshan
+      {fullName}
     </a>
 
     <div class="flex items-center gap-3">

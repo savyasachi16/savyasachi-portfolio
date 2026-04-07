@@ -1,5 +1,6 @@
 ---
 import SocialLink from '../ui/SocialLink.astro';
+import { config } from '../../data/config';
 ---
 
 <section id="contact" class="py-16 border-t border-[var(--color-border)]">
@@ -45,9 +46,9 @@ import SocialLink from '../ui/SocialLink.astro';
     </form>
 
     <div class="flex flex-wrap gap-3">
-      <SocialLink href="https://github.com/savyasachi16" label="GitHub" />
-      <SocialLink href="https://linkedin.com/in/jsavyasachi/" label="LinkedIn" />
-      <SocialLink href="mailto:jsavyasachi@gmail.com" label="Email" />
+      {config.social.github && <SocialLink href={config.social.github} label="GitHub" />}
+      {config.social.linkedin && <SocialLink href={config.social.linkedin} label="LinkedIn" />}
+      {config.social.email && <SocialLink href={`mailto:${config.social.email}`} label="Email" />}
     </div>
   </div>
 </section>

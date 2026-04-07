@@ -1,72 +1,105 @@
-# savyasachi.dev
+# folio — portfolio template
 
-Personal portfolio site for Savyasachi Jagadeeshan — Senior Software Engineer & Technical Lead.
+> A personal portfolio template built with Astro, Tailwind CSS v4, and Vercel. Includes Spotify now-playing, Goodreads reading shelf, dark/light/system theme toggle, and a typewriter hero animation.
 
-Live: https://savyasachi.dev
+**Live demo:** https://folio-rouge-chi.vercel.app
 
-## Tech Stack
+---
+
+## Use this template
+
+1. Fork or clone this repo
+2. Fill in **`src/data/config.ts`** — your name, bio, social links, Goodreads user ID
+3. Replace content in `src/data/` — `experience.ts`, `projects.ts`, `skills.ts`, `education.ts`
+4. Drop your resume at `public/resume.pdf`
+5. Push to GitHub → connect to Vercel → auto-deploys on every push
+
+That's it for a basic setup. Spotify now-playing is optional — see **Integrations** below.
+
+---
+
+Personal portfolio for Savyasachi Jagadeeshan (Savy) — Technical Lead & Senior Software Engineer.
+
+**Live:** https://folio-rouge-chi.vercel.app
+
+---
+
+## Stack
 
 <a href="https://astro.build"><img src="https://img.shields.io/badge/Astro-FF5D01?style=flat&logo=astro&logoColor=white" alt="Astro" /></a>
 <a href="https://tailwindcss.com"><img src="https://img.shields.io/badge/Tailwind_CSS_v4-06B6D4?style=flat&logo=tailwindcss&logoColor=white" alt="Tailwind CSS" /></a>
 <a href="https://www.typescriptlang.org"><img src="https://img.shields.io/badge/TypeScript-3178C6?style=flat&logo=typescript&logoColor=white" alt="TypeScript" /></a>
 <a href="https://vercel.com"><img src="https://img.shields.io/badge/Vercel-000000?style=flat&logo=vercel&logoColor=white" alt="Vercel" /></a>
-<a href="https://formspree.io"><img src="https://img.shields.io/badge/Formspree-E74B3C?style=flat&logo=formspree&logoColor=white" alt="Formspree" /></a>
 <a href="https://www.spotify.com"><img src="https://img.shields.io/badge/Spotify_API-1DB954?style=flat&logo=spotify&logoColor=white" alt="Spotify" /></a>
 <a href="https://www.goodreads.com"><img src="https://img.shields.io/badge/Goodreads_RSS-F4F1EA?style=flat&logo=goodreads&logoColor=372213" alt="Goodreads" /></a>
 
-## Dev
+---
+
+## Local dev
 
 ```bash
 npm install
-npm run dev      # localhost:4321
-npm run build    # → dist/
-npm run preview  # preview built output
+npm run dev      # localhost:4321 — live reload, use this for everything
+npm run build    # production build → dist/client/
 ```
+
+> `npm run preview` is broken — the Vercel adapter writes output to `dist/client/` which astro preview doesn't handle. Just use `npm run dev`.
+
+---
 
 ## Project structure
 
 ```
 src/
-  data/               — all content (edit here to update copy)
-    experience.ts     — work history
-    projects.ts       — side projects
-    skills.ts         — skill categories
-    education.ts      — degrees
+  data/               — all content lives here, edit to update copy
+    experience.ts
+    projects.ts
+    skills.ts
+    education.ts
   components/
     sections/         — one file per page section
-    ui/               — reusable card/pill components
+    ui/               — ExperienceCard, ProjectCard, SkillGroup, SocialLink
   layouts/
-    BaseLayout.astro  — HTML shell, fonts, global.css
+    BaseLayout.astro
   pages/
-    index.astro       — single page
-    api/spotify.ts    — serverless endpoint for Spotify now-playing
+    index.astro
+    api/spotify.ts    — serverless now-playing endpoint
   styles/
-    global.css        — @import tailwindcss + CSS custom properties
+    global.css
 public/
-  resume.pdf          — linked from Hero CTA
+  resume.pdf
 docs/
-  spotify-setup.md    — one-time Spotify OAuth setup instructions
+  spotify-setup.md
 ```
+
+---
 
 ## Updating content
 
-| What | Where |
-|------|-------|
+| What | File |
+|------|------|
 | Work experience | `src/data/experience.ts` |
 | Projects | `src/data/projects.ts` |
 | Skills | `src/data/skills.ts` |
 | Education | `src/data/education.ts` |
-| Resume PDF | Replace `public/resume.pdf` (keep filename) |
-| Contact form ID | `src/components/sections/Contact.astro` — replace `FORM_ID` |
+| Resume | Replace `public/resume.pdf` |
+| Contact form | `src/components/sections/Contact.astro` — swap `FORM_ID` |
+
+---
 
 ## Integrations
 
-**Goodreads** — fetched at build time from public RSS feeds. No API key needed. Updates on every deploy.
+**Goodreads** — build-time RSS fetch, no API key. Updates on every deploy.
 
-**Spotify** — live now-playing via `/api/spotify` serverless function. Requires three env vars. See `docs/spotify-setup.md`.
+**Spotify** — runtime `/api/spotify` serverless function. Needs three env vars in Vercel project settings:
+- `SPOTIFY_CLIENT_ID`
+- `SPOTIFY_CLIENT_SECRET`
+- `SPOTIFY_REFRESH_TOKEN`
+
+See `docs/spotify-setup.md` for setup.
+
+---
 
 ## Deploy
 
-Push to `main` → Vercel auto-deploys. Build command: `npm run build`. Output: `dist/`.
-
-Spotify env vars (`SPOTIFY_CLIENT_ID`, `SPOTIFY_CLIENT_SECRET`, `SPOTIFY_REFRESH_TOKEN`) must be set in Vercel project settings.
+Push to `main` → Vercel auto-deploys. No config needed.

@@ -1,5 +1,6 @@
 ---
 import '../styles/global.css';
+import { config } from '../data/config';
 
 interface Props {
   title?: string;
@@ -7,8 +8,8 @@ interface Props {
 }
 
 const {
-  title = 'Savyasachi Jagadeeshan — Software Engineer',
-  description = 'Software Engineer with 8 years of experience and a focus on Backend Engineering. Based in San Jose, CA.',
+  title = `${config.name.first} ${config.name.last} — Software Engineer`,
+  description = config.metaDescription,
 } = Astro.props;
 ---
 
