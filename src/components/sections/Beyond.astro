@@ -95,6 +95,24 @@ const stars = (n: number) => '★'.repeat(n) + '☆'.repeat(5 - n);
       </div>
     </div>
 
+    <!-- Top Tracks -->
+    <div class="mb-8">
+      <h3 class="text-xs font-semibold uppercase tracking-widest mb-6" style="color: var(--color-text-muted);">
+        Top Tracks — All Time
+      </h3>
+      <div id="top-tracks" class="flex flex-col gap-2 max-w-lg">
+        {Array.from({ length: 5 }).map(() => (
+          <div class="flex items-center gap-3 p-3 rounded-lg" style="background: color-mix(in srgb, var(--color-surface) 50%, transparent);">
+            <div class="w-10 h-10 rounded shrink-0 animate-pulse" style="background: var(--color-border);"></div>
+            <div class="flex flex-col gap-1.5 flex-1">
+              <div class="h-3 rounded animate-pulse w-2/3" style="background: var(--color-border);"></div>
+              <div class="h-2.5 rounded animate-pulse w-1/3" style="background: var(--color-border);"></div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+
     <!-- Currently Reading -->
     {currentlyReading.length > 0 && (
       <div class="mb-8">
@@ -222,6 +240,42 @@ const stars = (n: number) => '★'.repeat(n) + '☆'.repeat(5 - n);
   }
 
   loadSpotify();
+
+  async function loadTopTracks() {
+    const container = document.getElementById('top-tracks');
+    if (!container) return;
+
+    try {
+      const res = await fetch('/api/spotify-top');
+      const tracks = await res.json();
+
+      if (!tracks.length) {
+        container.innerHTML = `<span style="font-size:0.8rem;color:var(--color-text-muted);">No top tracks found.</span>`;
+        return;
+      }
+
+      container.innerHTML = tracks.map((t: any, i: number) => `
+        <a href="${t.songUrl}" target="_blank" rel="noopener noreferrer"
+           style="display:flex;align-items:center;gap:0.75rem;padding:0.625rem 0.75rem;border-radius:0.5rem;text-decoration:none;transition:background .15s;"
+           onmouseenter="this.style.background='color-mix(in srgb, var(--color-accent-glow) 60%, transparent)'"
+           onmouseleave="this.style.background='transparent'"
+        >
+          <span style="font-size:0.7rem;width:1.25rem;text-align:right;color:var(--color-text-muted);flex-shrink:0;">${i + 1}</span>
+          <img src="${t.albumArt}" alt="${t.album}" width="40" height="40"
+               style="border-radius:4px;object-fit:cover;flex-shrink:0;box-shadow:0 1px 4px rgba(0,0,0,0.4);" />
+          <div style="display:flex;flex-direction:column;gap:2px;min-width:0;">
+            <span style="font-size:0.875rem;font-weight:500;color:var(--color-text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${t.title}</span>
+            <span style="font-size:0.75rem;color:var(--color-text-muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${t.artist}</span>
+          </div>
+        </a>
+      `).join('');
+    } catch {
+      const el = document.getElementById('top-tracks');
+      if (el) el.innerHTML = `<span style="font-size:0.8rem;color:var(--color-text-muted);">Couldn't load top tracks.</span>`;
+    }
+  }
+
+  loadTopTracks();
 </script>
 
 <style is:global>
