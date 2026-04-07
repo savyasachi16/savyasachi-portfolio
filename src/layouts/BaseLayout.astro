@@ -44,9 +44,9 @@ const {
     <!-- Read localStorage before first paint to avoid flash -->
     <script is:inline>
       (function () {
-        const stored = localStorage.getItem('theme');
-        const preferred = window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
-        document.documentElement.setAttribute('data-theme', stored || preferred);
+        const mode = localStorage.getItem('themeMode') || 'system';
+        const sys = window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+        document.documentElement.setAttribute('data-theme', mode === 'system' ? sys : mode);
       })();
     </script>
   </head>

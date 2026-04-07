@@ -18,13 +18,13 @@
 
       <button
         id="theme-toggle"
-        aria-label="Toggle light/dark mode"
+        aria-label="Toggle theme"
         class="w-8 h-8 flex items-center justify-center rounded-lg border transition-all duration-200 hover:scale-110"
         style="border-color: var(--color-border); color: var(--color-text-muted); background: color-mix(in srgb, var(--color-accent-glow) 50%, transparent);"
         onmouseenter="this.style.borderColor='var(--color-accent)'; this.style.color='var(--color-accent)'"
         onmouseleave="this.style.borderColor='var(--color-border)'; this.style.color='var(--color-text-muted)'"
       >
-        <!-- Sun icon (shown in dark mode → click to go light) -->
+        <!-- Sun icon: shown in dark mode → click to go light -->
         <svg id="icon-sun" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <circle cx="12" cy="12" r="4"/>
           <line x1="12" y1="2"  x2="12" y2="5"/>
@@ -36,9 +36,15 @@
           <line x1="4.22" y1="19.78" x2="6.34" y2="17.66"/>
           <line x1="17.66" y1="6.34" x2="19.78" y2="4.22"/>
         </svg>
-        <!-- Moon icon (shown in light mode → click to go dark) -->
+        <!-- Moon icon: shown in light mode → click to go system -->
         <svg id="icon-moon" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="hidden">
           <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+        </svg>
+        <!-- Monitor icon: shown in system mode → click to go dark -->
+        <svg id="icon-system" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="hidden">
+          <rect x="2" y="3" width="20" height="14" rx="2"/>
+          <line x1="8" y1="21" x2="16" y2="21"/>
+          <line x1="12" y1="17" x2="12" y2="21"/>
         </svg>
       </button>
     </div>
@@ -47,31 +53,42 @@
 
 <script>
   function initTheme() {
-    const btn = document.getElementById('theme-toggle');
-    const sun  = document.getElementById('icon-sun');
-    const moon = document.getElementById('icon-moon');
+    const btn    = document.getElementById('theme-toggle');
+    const sun    = document.getElementById('icon-sun');
+    const moon   = document.getElementById('icon-moon');
+    const system = document.getElementById('icon-system');
 
-    function updateIcon(theme: string) {
-      if (theme === 'light') {
-        sun?.classList.add('hidden');
-        moon?.classList.remove('hidden');
-      } else {
-        sun?.classList.remove('hidden');
-        moon?.classList.add('hidden');
-      }
+    function applyTheme(theme: string) {
+      document.documentElement.setAttribute('data-theme', theme);
     }
 
-    // On load, system default if no stored pref
-    const stored = localStorage.getItem('theme');
-    const system = window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
-    const current = stored || system;
-    document.documentElement.setAttribute('data-theme', current);
-    updateIcon(current);
+    function updateIcon(mode: string) {
+      sun?.classList.toggle('hidden',    mode !== 'dark');
+      moon?.classList.toggle('hidden',   mode !== 'light');
+      system?.classList.toggle('hidden', mode !== 'system');
+    }
+
+    function getSystemTheme() {
+      return window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+    }
+
+    // Restore saved mode (dark | light | system), default system
+    const stored = localStorage.getItem('themeMode') ?? 'system';
+    applyTheme(stored === 'system' ? getSystemTheme() : stored);
+    updateIcon(stored);
+
+    // Keep system mode in sync if OS pref changes
+    window.matchMedia('(prefers-color-scheme: light)').addEventListener('change', () => {
+      if ((localStorage.getItem('themeMode') ?? 'system') === 'system') {
+        applyTheme(getSystemTheme());
+      }
+    });
 
     btn?.addEventListener('click', () => {
-      const next = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
-      document.documentElement.setAttribute('data-theme', next);
-      localStorage.setItem('theme', next);
+      const current = localStorage.getItem('themeMode') ?? 'system';
+      const next = current === 'dark' ? 'light' : current === 'light' ? 'system' : 'dark';
+      localStorage.setItem('themeMode', next);
+      applyTheme(next === 'system' ? getSystemTheme() : next);
       updateIcon(next);
     });
   }

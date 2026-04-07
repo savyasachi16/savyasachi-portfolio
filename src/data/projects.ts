@@ -5,16 +5,18 @@ export interface Project {
   githubUrl: string;
   liveUrl?: string;
   featured?: boolean;
+  color?: string;
 }
 
 export const projects: Project[] = [
   {
-    title: 'savyasachi-portfolio',
+    title: 'folio',
     description: 'The site you\'re on right now, which contains a card for the site you\'re on right now, which contains a card for the site you\'re on right now—',
     techStack: ['Astro', 'Tailwind CSS', 'TypeScript'],
-    githubUrl: 'https://github.com/savyasachi16/savyasachi-portfolio',
+    githubUrl: 'https://github.com/savyasachi16/folio',
     liveUrl: 'https://savyasachi.dev',
     featured: true,
+    color: '#7eb8f7',
   },
   {
     title: 'claude-dotfiles',
@@ -22,6 +24,7 @@ export const projects: Project[] = [
     techStack: ['Shell'],
     githubUrl: 'https://github.com/savyasachi16/claude-dotfiles',
     featured: true,
+    color: '#f7a07e',
   },
   {
     title: 'mac-battery-cycle-history',
@@ -29,6 +32,7 @@ export const projects: Project[] = [
     techStack: ['Shell'],
     githubUrl: 'https://github.com/savyasachi16/mac-battery-cycle-history',
     featured: true,
+    color: '#7ef7b8',
   },
   {
     title: 'SampleChain',
@@ -36,5 +40,6 @@ export const projects: Project[] = [
     techStack: ['Python'],
     githubUrl: 'https://github.com/savyasachi16/SampleChain',
     featured: true,
+    color: '#c87ef7',
   },
 ];

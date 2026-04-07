@@ -89,7 +89,15 @@ Env vars: `SPOTIFY_CLIENT_ID`, `SPOTIFY_CLIENT_SECRET`, `SPOTIFY_REFRESH_TOKEN`.
 ## Dev commands
 
 ```bash
-npm run dev      # localhost:4321
-npm run build    # production build → dist/
-npm run preview  # preview built output
+npm run dev      # localhost:4321 — use this for all local work, has live reload
+npm run build    # production build → dist/client/ (Vercel adapter splits output here)
+npm run preview  # BROKEN — astro preview doesn't handle Vercel adapter output
 ```
+
+### Local preview workflow
+
+**Always use `npm run dev`** for local work. It has HMR and is ready immediately.
+
+Never use `npm run preview` — the Vercel adapter writes output to `dist/client/` instead
+of `dist/`, which breaks `astro preview`. If you need to verify a production build,
+use `npx serve dist/client -p 4322`, but there is almost never a reason to do this.

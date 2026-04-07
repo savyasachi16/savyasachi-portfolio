@@ -21,8 +21,9 @@
       class="text-5xl md:text-7xl font-bold tracking-tight mb-4"
       style="font-family: 'Syne', sans-serif; color: var(--color-text);"
     >
-      Savyasachi<br />Jagadeeshan
+      <span id="hero-name-text"></span><span id="hero-cursor" class="hero-cursor">|</span>
     </h1>
+    <p class="text-lg mb-6 -mt-2" style="color: var(--color-text-muted); font-family: 'Syne', sans-serif;">but everyone calls me Savy</p>
 
     <div class="flex flex-wrap gap-2 mb-6">
       <span class="px-3 py-1 text-sm rounded-full border font-medium" style="border-color: var(--color-accent); color: var(--color-accent); background: var(--color-accent-glow);">Technical Lead</span>
@@ -31,7 +32,7 @@
     </div>
 
     <p class="text-base max-w-xl leading-relaxed mb-10" style="color: var(--color-text-muted);">
-      8 years building backend systems and APIs. Based in the San Francisco Bay Area.
+      Been building backend systems and APIs for 8 years. Currently in the Bay Area.
     </p>
 
     <div class="flex flex-wrap gap-4 mb-12">
@@ -81,3 +82,41 @@
     </div>
   </div>
 </section>
+
+<style>
+  .hero-cursor {
+    display: inline-block;
+    margin-left: 2px;
+    color: var(--color-accent);
+    animation: blink 1s step-start infinite;
+  }
+  @keyframes blink {
+    0%, 100% { opacity: 1; }
+    50%       { opacity: 0; }
+  }
+</style>
+
+<script>
+  const nameEl = document.getElementById('hero-name-text')!;
+  const part1 = 'Savyasachi';
+  const part2 = 'Jagadeeshan';
+  const speed = 80;
+
+  function sleep(ms: number) {
+    return new Promise(r => setTimeout(r, ms));
+  }
+
+  async function typeHero() {
+    for (let i = 0; i <= part1.length; i++) {
+      nameEl.innerHTML = part1.slice(0, i);
+      await sleep(speed);
+    }
+    nameEl.innerHTML = part1 + '<br>';
+    for (let i = 0; i <= part2.length; i++) {
+      nameEl.innerHTML = part1 + '<br>' + part2.slice(0, i);
+      await sleep(speed);
+    }
+  }
+
+  typeHero();
+</script>
