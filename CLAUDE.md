@@ -2,7 +2,7 @@
 
 Owner: Savyasachi Jagadeeshan (jsavyasachi@gmail.com)
 Live: https://savyasachi.dev
-Repo: github.com/savyasachi16/savyasachi-portfolio
+Repo: github.com/savyasachi16/folio
 
 ## Stack
 
