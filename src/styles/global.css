@@ -12,7 +12,8 @@
 
 html {
   scroll-behavior: smooth;
-  font-family: 'Inter', system-ui, sans-serif;
+  font-family: 'DM Sans', system-ui, sans-serif;
+  font-size: 17px;
   background-color: var(--color-bg);
   color: var(--color-text);
 }
@@ -20,6 +21,10 @@ html {
 body {
   background-image: radial-gradient(circle, var(--color-border) 1px, transparent 1px);
   background-size: 24px 24px;
+}
+
+h2 {
+  font-family: 'Fraunces', Georgia, serif;
 }
 
 @keyframes orb-pulse {

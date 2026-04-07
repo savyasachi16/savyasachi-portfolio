@@ -10,7 +10,7 @@ export interface Project {
 export const projects: Project[] = [
   {
     title: 'savyasachi-portfolio',
-    description: 'Personal portfolio site.',
+    description: 'The site you\'re on right now, which contains a card for the site you\'re on right now, which contains a card for the site you\'re on right now—',
     techStack: ['Astro', 'Tailwind CSS', 'TypeScript'],
     githubUrl: 'https://github.com/savyasachi16/savyasachi-portfolio',
     liveUrl: 'https://savyasachi.dev',

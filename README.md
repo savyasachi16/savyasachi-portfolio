@@ -4,13 +4,15 @@ Personal portfolio site for Savyasachi Jagadeeshan — Senior Software Engineer 
 
 Live: https://savyasachi.dev
 
-## Stack
+## Tech Stack
 
-- **Astro 6** — static output with Vercel adapter for the Spotify serverless endpoint
-- **Tailwind CSS v4** — via `@tailwindcss/vite`
-- **TypeScript** — strict, data files only
-- **Vercel** — auto-deploys on push to `main`
-- **Formspree** — contact form (no backend)
+<a href="https://astro.build"><img src="https://img.shields.io/badge/Astro-FF5D01?style=flat&logo=astro&logoColor=white" alt="Astro" /></a>
+<a href="https://tailwindcss.com"><img src="https://img.shields.io/badge/Tailwind_CSS_v4-06B6D4?style=flat&logo=tailwindcss&logoColor=white" alt="Tailwind CSS" /></a>
+<a href="https://www.typescriptlang.org"><img src="https://img.shields.io/badge/TypeScript-3178C6?style=flat&logo=typescript&logoColor=white" alt="TypeScript" /></a>
+<a href="https://vercel.com"><img src="https://img.shields.io/badge/Vercel-000000?style=flat&logo=vercel&logoColor=white" alt="Vercel" /></a>
+<a href="https://formspree.io"><img src="https://img.shields.io/badge/Formspree-E74B3C?style=flat&logo=formspree&logoColor=white" alt="Formspree" /></a>
+<a href="https://www.spotify.com"><img src="https://img.shields.io/badge/Spotify_API-1DB954?style=flat&logo=spotify&logoColor=white" alt="Spotify" /></a>
+<a href="https://www.goodreads.com"><img src="https://img.shields.io/badge/Goodreads_RSS-F4F1EA?style=flat&logo=goodreads&logoColor=372213" alt="Goodreads" /></a>
 
 ## Dev
 
