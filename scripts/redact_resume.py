@@ -33,23 +33,22 @@ def redact_pdf(input_path: str) -> None:
         sys.exit(1)
 
     doc = fitz.open(str(src))
-    redacted = False
+    redacted_count = 0
 
     for page in doc:
-        # Search for phone number patterns across the whole page text
-        text_instances = page.search_for(page.get_text())  # warm cache
-        blocks = page.get_text("dict")["blocks"]
+        full_text = page.get_text()
+        matches = PHONE_PATTERN.findall(full_text)
 
-        for block in blocks:
-            for line in block.get("lines", []):
-                for span in line.get("spans", []):
-                    text = span["text"]
-                    if PHONE_PATTERN.search(text):
-                        # Find the exact rect for this span and redact it
-                        hits = page.search_for(text)
-                        for rect in hits:
-                            page.add_redact_annot(rect, fill=(1, 1, 1))
-                            redacted = True
+        if not matches:
+            continue
+
+        # Search for each phone number string directly — redacts only that text rect
+        for match in PHONE_PATTERN.finditer(full_text):
+            phone_str = match.group(0)
+            hits = page.search_for(phone_str)
+            for rect in hits:
+                page.add_redact_annot(rect, fill=(1, 1, 1))
+                redacted_count += 1
 
         page.apply_redactions()
 
@@ -57,8 +56,8 @@ def redact_pdf(input_path: str) -> None:
     doc.save(str(OUTPUT_PATH))
     doc.close()
 
-    if redacted:
-        print(f"Redacted phone number(s) and saved to {OUTPUT_PATH}")
+    if redacted_count:
+        print(f"Redacted {redacted_count} phone number instance(s) → {OUTPUT_PATH}")
     else:
         print(f"No phone numbers found — saved clean copy to {OUTPUT_PATH}")
 

@@ -57,6 +57,7 @@ export const experiences: Experience[] = [
           'Improved security by implementing business logic that disallows fraudulent micro-deposit transactions.',
           'Led the design, implementation and testing of new trade insurance POC that has never been seen on any brokerage platform.',
           'Improved efficiency of batch jobs by 33% by retiring redundant jobs and cleaning up unused files and databases.',
+          'Performed third-party library and dependency upgrades for bank verification features.',
           'Enabled SonarQube code quality and security analysis on all working repositories to improve visibility on code coverage, code smells and vulnerabilities. Added automated report generation in Jenkins\'s build stages for all repositories.',
           'Set up Email Automation server and integrated APIs to the QA automation codebase.',
         ],
