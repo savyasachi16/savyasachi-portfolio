@@ -14,7 +14,7 @@ export const projects: Project[] = [
     description: 'You\'re looking at it. This card is about the site that contains this card.',
     techStack: ['Astro', 'Tailwind CSS', 'TypeScript'],
     githubUrl: 'https://github.com/savyasachi16/folio',
-    liveUrl: 'https://savyasachi.dev',
+    liveUrl: 'https://folio-rouge-chi.vercel.app',
     featured: true,
     color: '#7eb8f7',
   },
