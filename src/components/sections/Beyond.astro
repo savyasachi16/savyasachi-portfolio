@@ -83,7 +83,7 @@ const stars = (n: number) => '★'.repeat(n) + '☆'.repeat(5 - n);
       <h3 class="text-xs font-semibold uppercase tracking-widest mb-6" style="color: var(--color-text-muted);">
         Spotify
       </h3>
-      <div id="spotify-card" class="inline-flex items-center gap-4 p-4 rounded-xl border backdrop-blur-sm" style="border-color: var(--color-border); background: color-mix(in srgb, var(--color-surface) 70%, transparent); min-width: 280px;">
+      <div id="spotify-card" class="flex items-center gap-4 p-4 rounded-xl border backdrop-blur-sm w-full max-w-sm" style="border-color: var(--color-border); background: color-mix(in srgb, var(--color-surface) 70%, transparent);">
         <!-- skeleton -->
         <div class="w-14 h-14 rounded-md shrink-0 animate-pulse" style="background: var(--color-border);"></div>
         <div class="flex flex-col gap-2 flex-1">
@@ -105,7 +105,7 @@ const stars = (n: number) => '★'.repeat(n) + '☆'.repeat(5 - n);
               href={book.link}
               target="_blank"
               rel="noopener noreferrer"
-              class="flex gap-4 p-4 rounded-xl border backdrop-blur-sm transition-all duration-200 max-w-xs"
+              class="flex gap-4 p-4 rounded-xl border backdrop-blur-sm transition-all duration-200 w-full max-w-sm"
               style="border-color: var(--color-border); background: color-mix(in srgb, var(--color-surface) 70%, transparent);"
               onmouseenter="this.style.borderColor='var(--color-accent)'; this.style.boxShadow='0 4px 24px var(--color-accent-glow)'"
               onmouseleave="this.style.borderColor='var(--color-border)'; this.style.boxShadow='none'"
@@ -198,7 +198,7 @@ const stars = (n: number) => '★'.repeat(n) + '☆'.repeat(5 - n);
       card.outerHTML = `
         <a href="${data.songUrl}" target="_blank" rel="noopener noreferrer"
            id="spotify-card"
-           style="display:inline-flex;align-items:center;gap:1rem;padding:1rem;border-radius:0.75rem;border:1px solid var(--color-border);backdrop-filter:blur(4px);background:color-mix(in srgb, var(--color-surface) 70%, transparent);text-decoration:none;transition:border-color .2s,box-shadow .2s;"
+           style="display:flex;align-items:center;gap:1rem;padding:1rem;border-radius:0.75rem;border:1px solid var(--color-border);backdrop-filter:blur(4px);background:color-mix(in srgb, var(--color-surface) 70%, transparent);text-decoration:none;transition:border-color .2s,box-shadow .2s;width:100%;max-width:24rem;box-sizing:border-box;"
            onmouseenter="this.style.borderColor='var(--color-accent)';this.style.boxShadow='0 4px 24px var(--color-accent-glow)'"
            onmouseleave="this.style.borderColor='var(--color-border)';this.style.boxShadow='none'"
         >

@@ -6,8 +6,10 @@
     <a href="/" class="text-sm font-semibold tracking-wide transition-colors hover:text-[var(--color-accent)]" style="color: var(--color-text); font-family: 'Syne', sans-serif;">
       Savyasachi Jagadeeshan
     </a>
-    <div class="flex items-center gap-6">
-      <ul class="flex items-center gap-6">
+
+    <div class="flex items-center gap-3">
+      <!-- Desktop nav links -->
+      <ul class="hidden md:flex items-center gap-6">
         <li><a href="#experience" class="text-sm transition-colors hover:text-[var(--color-text)]" style="color: var(--color-text-muted);">Experience</a></li>
         <li><a href="#projects"   class="text-sm transition-colors hover:text-[var(--color-text)]" style="color: var(--color-text-muted);">Projects</a></li>
         <li><a href="#skills"     class="text-sm transition-colors hover:text-[var(--color-text)]" style="color: var(--color-text-muted);">Skills</a></li>
@@ -16,6 +18,7 @@
         <li><a href="#contact"    class="text-sm transition-colors hover:text-[var(--color-text)]" style="color: var(--color-text-muted);">Contact</a></li>
       </ul>
 
+      <!-- Theme toggle -->
       <button
         id="theme-toggle"
         aria-label="Toggle theme"
@@ -24,7 +27,6 @@
         onmouseenter="this.style.borderColor='var(--color-accent)'; this.style.color='var(--color-accent)'"
         onmouseleave="this.style.borderColor='var(--color-border)'; this.style.color='var(--color-text-muted)'"
       >
-        <!-- Sun icon: shown in dark mode → click to go light -->
         <svg id="icon-sun" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <circle cx="12" cy="12" r="4"/>
           <line x1="12" y1="2"  x2="12" y2="5"/>
@@ -36,19 +38,51 @@
           <line x1="4.22" y1="19.78" x2="6.34" y2="17.66"/>
           <line x1="17.66" y1="6.34" x2="19.78" y2="4.22"/>
         </svg>
-        <!-- Moon icon: shown in light mode → click to go system -->
         <svg id="icon-moon" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="hidden">
           <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
         </svg>
-        <!-- Monitor icon: shown in system mode → click to go dark -->
         <svg id="icon-system" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="hidden">
           <rect x="2" y="3" width="20" height="14" rx="2"/>
           <line x1="8" y1="21" x2="16" y2="21"/>
           <line x1="12" y1="17" x2="12" y2="21"/>
         </svg>
       </button>
+
+      <!-- Hamburger (mobile only) -->
+      <button
+        id="menu-toggle"
+        aria-label="Toggle menu"
+        class="md:hidden w-8 h-8 flex items-center justify-center rounded-lg border transition-all duration-200"
+        style="border-color: var(--color-border); color: var(--color-text-muted);"
+      >
+        <svg id="icon-menu" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="3" y1="6"  x2="21" y2="6"/>
+          <line x1="3" y1="12" x2="21" y2="12"/>
+          <line x1="3" y1="18" x2="21" y2="18"/>
+        </svg>
+        <svg id="icon-close" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="hidden">
+          <line x1="18" y1="6" x2="6" y2="18"/>
+          <line x1="6" y1="6" x2="18" y2="18"/>
+        </svg>
+      </button>
     </div>
   </nav>
+
+  <!-- Mobile menu -->
+  <div
+    id="mobile-menu"
+    class="hidden md:hidden border-t px-6 py-4"
+    style="border-color: var(--color-border); background: var(--color-bg);"
+  >
+    <ul class="flex flex-col gap-4">
+      <li><a href="#experience" class="mobile-nav-link text-sm transition-colors hover:text-[var(--color-text)]" style="color: var(--color-text-muted);">Experience</a></li>
+      <li><a href="#projects"   class="mobile-nav-link text-sm transition-colors hover:text-[var(--color-text)]" style="color: var(--color-text-muted);">Projects</a></li>
+      <li><a href="#skills"     class="mobile-nav-link text-sm transition-colors hover:text-[var(--color-text)]" style="color: var(--color-text-muted);">Skills</a></li>
+      <li><a href="#education"  class="mobile-nav-link text-sm transition-colors hover:text-[var(--color-text)]" style="color: var(--color-text-muted);">Education</a></li>
+      <li><a href="#beyond"     class="mobile-nav-link text-sm transition-colors hover:text-[var(--color-text)]" style="color: var(--color-text-muted);">Beyond</a></li>
+      <li><a href="#contact"    class="mobile-nav-link text-sm transition-colors hover:text-[var(--color-text)]" style="color: var(--color-text-muted);">Contact</a></li>
+    </ul>
+  </div>
 </header>
 
 <script>
@@ -72,12 +106,10 @@
       return window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
     }
 
-    // Restore saved mode (dark | light | system), default system
     const stored = localStorage.getItem('themeMode') ?? 'system';
     applyTheme(stored === 'system' ? getSystemTheme() : stored);
     updateIcon(stored);
 
-    // Keep system mode in sync if OS pref changes
     window.matchMedia('(prefers-color-scheme: light)').addEventListener('change', () => {
       if ((localStorage.getItem('themeMode') ?? 'system') === 'system') {
         applyTheme(getSystemTheme());
@@ -93,5 +125,29 @@
     });
   }
 
+  function initMobileMenu() {
+    const toggle   = document.getElementById('menu-toggle');
+    const menu     = document.getElementById('mobile-menu');
+    const iconMenu  = document.getElementById('icon-menu');
+    const iconClose = document.getElementById('icon-close');
+
+    toggle?.addEventListener('click', () => {
+      const open = !menu?.classList.contains('hidden');
+      menu?.classList.toggle('hidden', open);
+      iconMenu?.classList.toggle('hidden', !open);
+      iconClose?.classList.toggle('hidden', open);
+    });
+
+    // Close on link click
+    document.querySelectorAll('.mobile-nav-link').forEach(link => {
+      link.addEventListener('click', () => {
+        menu?.classList.add('hidden');
+        iconMenu?.classList.remove('hidden');
+        iconClose?.classList.add('hidden');
+      });
+    });
+  }
+
   initTheme();
+  initMobileMenu();
 </script>
