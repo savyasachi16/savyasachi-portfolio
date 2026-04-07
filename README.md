@@ -78,7 +78,7 @@ docs/
 | Projects | `src/data/projects.ts` |
 | Skills | `src/data/skills.ts` |
 | Education | `src/data/education.ts` |
-| Resume | Replace `public/resume.pdf` |
+| Resume | Run `python scripts/redact_resume.py <your-pdf>` → writes to `public/resume.pdf` (see `docs/resume-redaction.md`) |
 | Contact form | `src/components/sections/Contact.astro` — swap `FORM_ID` |
 
 ---
