@@ -2,7 +2,7 @@
 
 > A personal portfolio template built with Astro, Tailwind CSS v4, and Vercel. Includes Spotify now-playing, Goodreads reading shelf, dark/light/system theme toggle, and a typewriter hero animation.
 
-**Live demo:** https://folio-rouge-chi.vercel.app
+**Live demo:** https://savyasachi.dev
 
 ---
 
