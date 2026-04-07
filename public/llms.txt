@@ -1,0 +1,24 @@
+# Savyasachi Jagadeeshan (Savy)
+
+> Personal portfolio for Savyasachi Jagadeeshan — Technical Lead and Senior Software Engineer with 8 years of backend engineering experience. Based in the San Francisco Bay Area.
+
+## About
+
+- Technical Lead at PayPal (Braintree Forward API)
+- 8 years building backend systems, APIs, and distributed infrastructure
+- Based in the Bay Area
+
+## Sections
+
+- Experience: Work history at PayPal, Stockpile Investments, NortonLifeLock, Qualcomm, and Accenture
+- Projects: Open source and side projects including this portfolio site
+- Skills: Backend engineering, cloud infrastructure, observability, and tooling
+- Education: Academic background
+- Beyond: Currently reading (Goodreads), currently listening (Spotify), and personal interests
+- Contact: Available via the contact form, GitHub, LinkedIn, or email
+
+## Contact
+
+- GitHub: https://github.com/savyasachi16
+- LinkedIn: https://linkedin.com/in/jsavyasachi/
+- Email: jsavyasachi@gmail.com
