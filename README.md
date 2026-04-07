@@ -12,15 +12,9 @@
 2. Fill in **`src/data/config.ts`** — your name, bio, social links, Goodreads user ID
 3. Replace content in `src/data/` — `experience.ts`, `projects.ts`, `skills.ts`, `education.ts`
 4. Drop your resume at `public/resume.pdf`
-5. Push to GitHub → connect to Vercel → auto-deploys on every push
+5. Deploy to Vercel (see below)
 
 That's it for a basic setup. Spotify now-playing is optional — see **Integrations** below.
-
----
-
-Personal portfolio for Savyasachi Jagadeeshan (Savy) — Technical Lead & Senior Software Engineer.
-
-**Live:** https://folio-rouge-chi.vercel.app
 
 ---
 
@@ -52,6 +46,7 @@ npm run build    # production build → dist/client/
 ```
 src/
   data/               — all content lives here, edit to update copy
+    config.ts         — your personal info (name, bio, social links)
     experience.ts
     projects.ts
     skills.ts
@@ -78,6 +73,7 @@ docs/
 
 | What | File |
 |------|------|
+| Name, bio, social links | `src/data/config.ts` |
 | Work experience | `src/data/experience.ts` |
 | Projects | `src/data/projects.ts` |
 | Skills | `src/data/skills.ts` |
@@ -87,19 +83,29 @@ docs/
 
 ---
 
-## Integrations
+## Deploy to Vercel
 
-**Goodreads** — build-time RSS fetch, no API key. Updates on every deploy.
+1. Go to **vercel.com** and sign up with your GitHub account
+2. Click **Add New Project** → import your forked repo
+3. Leave all build settings as-is — Vercel auto-detects Astro
+4. If using Spotify: add env vars before deploying (see Integrations below)
+5. Click **Deploy** → you'll get a `*.vercel.app` URL
 
-**Spotify** — runtime `/api/spotify` serverless function. Needs three env vars in Vercel project settings:
-- `SPOTIFY_CLIENT_ID`
-- `SPOTIFY_CLIENT_SECRET`
-- `SPOTIFY_REFRESH_TOKEN`
+Every push to `main` auto-deploys from here on.
 
-See `docs/spotify-setup.md` for setup.
+### Custom domain
+
+1. Buy a domain (Namecheap, Squarespace Domains, etc.)
+2. Vercel dashboard → Project → **Settings → Domains** → add your domain
+3. Vercel will show you DNS records to add at your registrar (usually an A record + CNAME)
+4. Once DNS propagates (~1–24h), your domain is live
 
 ---
 
-## Deploy
+## Integrations
 
-Push to `main` → Vercel auto-deploys. No config needed.
+**Goodreads** — build-time RSS fetch from your public shelf. No API key. Set `goodreadsUserId` in `config.ts`. Updates on every deploy.
+
+**Spotify** — runtime now-playing via `/api/spotify` serverless function. Optional. See `docs/spotify-setup.md` for the full setup guide.
+
+---

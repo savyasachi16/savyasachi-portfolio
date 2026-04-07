@@ -12,9 +12,9 @@ One-time setup to get the now-playing card working on the live site.
 ## Step 1 — Create a Spotify app
 
 1. Go to https://developer.spotify.com/dashboard
-2. Create app
-3. Set Redirect URI to `http://localhost:3000`
-4. Copy **Client ID** and **Client Secret**
+2. Click **Create app**
+3. Set **Redirect URI** to `http://localhost:3000`
+4. Copy your **Client ID** and **Client Secret**
 
 ---
 
@@ -41,7 +41,8 @@ Save the `refresh_token` from the response.
 
 ## Step 3 — Add env vars to Vercel
 
-Vercel dashboard → Project → Settings → Environment Variables:
+1. Go to **vercel.com** → your project → **Settings → Environment Variables**
+2. Add all three vars, setting scope to **Production + Preview + Development**:
 
 | Key | Value |
 |-----|-------|
@@ -49,16 +50,20 @@ Vercel dashboard → Project → Settings → Environment Variables:
 | `SPOTIFY_CLIENT_SECRET` | from Step 1 |
 | `SPOTIFY_REFRESH_TOKEN` | from Step 2 |
 
-Redeploy after adding. The card will show a pulsing green dot when something is actively playing, or the last played track otherwise.
+3. Go to **Deployments** → click the three dots on the latest deploy → **Redeploy**
+
+The card will show a pulsing green dot when something is actively playing, or the last played track otherwise.
 
 ---
 
 ## Local dev
 
-Add the same vars to a `.env` file (already gitignored):
+Add the same vars to a `.env` file at the project root (already gitignored):
 
 ```
 SPOTIFY_CLIENT_ID=...
 SPOTIFY_CLIENT_SECRET=...
 SPOTIFY_REFRESH_TOKEN=...
 ```
+
+Then `npm run dev` — the `/api/spotify` endpoint will work locally too.

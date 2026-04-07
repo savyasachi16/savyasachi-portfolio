@@ -11,7 +11,7 @@ export interface Project {
 export const projects: Project[] = [
   {
     title: 'folio',
-    description: 'The site you\'re on right now, which contains a card for the site you\'re on right now, which contains a card for the site you\'re on right now—',
+    description: 'You\'re looking at it. This card is about the site that contains this card.',
     techStack: ['Astro', 'Tailwind CSS', 'TypeScript'],
     githubUrl: 'https://github.com/savyasachi16/folio',
     liveUrl: 'https://savyasachi.dev',
