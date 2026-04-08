@@ -19,6 +19,14 @@ export const projects: Project[] = [
     color: '#7eb8f7',
   },
   {
+    title: 'lorekeeper',
+    description: 'LLM-curated Obsidian wiki built incrementally from PDFs and notes. Karpathy\'s LLM Wiki pattern.',
+    techStack: ['TypeScript', 'Claude Agent SDK', 'MCP'],
+    githubUrl: 'https://github.com/savyasachi16/lorekeeper',
+    featured: true,
+    color: '#f7e57e',
+  },
+  {
     title: 'claude-dotfiles',
     description: 'Cross-machine Claude Code settings for Mac and Linux.',
     techStack: ['Shell'],
