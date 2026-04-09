@@ -82,7 +82,7 @@ const wallets = [
     style="background: rgba(0,0,0,0.6); backdrop-filter: blur(4px);"
   >
     <div
-      class="relative rounded-2xl border p-6 flex flex-col items-center gap-4 w-full max-w-xs"
+      class="relative rounded-2xl border p-6 flex flex-col items-center gap-4 w-full"
       style="background: var(--color-surface); border-color: var(--color-border); box-shadow: 0 24px 64px rgba(0,0,0,0.5); max-width: 28rem;"
     >
       <button
@@ -108,7 +108,7 @@ const wallets = [
       />
 
       <div class="w-full flex flex-col gap-2">
-        <code class="w-full block text-xs text-center" style="color: var(--color-text-muted); white-space: nowrap;">{w.address}</code>
+        <code class="w-full block text-xs text-center break-all" style="color: var(--color-text-muted);">{w.address}</code>
         <button
           class="copy-addr w-full py-2 rounded-lg text-sm font-medium transition-opacity hover:opacity-80"
           style="background: var(--color-accent); color: var(--color-bg);"
