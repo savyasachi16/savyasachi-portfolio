@@ -78,8 +78,8 @@ const wallets = [
 {wallets.map((w) => (
   <div
     id={`modal-${w.id}`}
-    class="tip-modal hidden fixed inset-0 z-50 flex items-center justify-center p-4"
-    style="background: rgba(0,0,0,0.6); backdrop-filter: blur(4px);"
+    class="tip-modal fixed inset-0 z-50 items-center justify-center p-4"
+    style="display: none; background: rgba(0,0,0,0.6); backdrop-filter: blur(4px);"
   >
     <div
       class="relative rounded-2xl border p-6 flex flex-col items-center gap-4 w-full"
@@ -133,20 +133,28 @@ const wallets = [
   document.addEventListener('click', () => popover?.classList.add('hidden'));
   popover?.addEventListener('click', (e) => e.stopPropagation());
 
+  function showModal(id: string) {
+    const modal = document.getElementById(`modal-${id}`) as HTMLElement | null;
+    if (modal) modal.style.display = 'flex';
+  }
+  function hideModal(modal: HTMLElement) {
+    modal.style.display = 'none';
+  }
+
   document.querySelectorAll('.tip-trigger').forEach((btn) => {
     btn.addEventListener('click', () => {
       popover?.classList.add('hidden');
       const id = (btn as HTMLElement).dataset.id;
-      document.getElementById(`modal-${id}`)?.classList.remove('hidden');
+      if (id) showModal(id);
     });
   });
 
-  document.querySelectorAll('.tip-modal').forEach((modal) => {
+  document.querySelectorAll<HTMLElement>('.tip-modal').forEach((modal) => {
     modal.addEventListener('click', (e) => {
-      if (e.target === modal) modal.classList.add('hidden');
+      if (e.target === modal) hideModal(modal);
     });
     modal.querySelector('.modal-close')?.addEventListener('click', () => {
-      modal.classList.add('hidden');
+      hideModal(modal);
     });
   });
 
