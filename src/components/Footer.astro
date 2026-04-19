@@ -213,24 +213,26 @@ const wallets = [
     e.stopPropagation();
     const isHidden = popover?.classList.contains('hidden');
     if (isHidden && popover && tipBtn) {
+      popover.classList.remove('hidden');
       const rect = (tipBtn as HTMLElement).getBoundingClientRect();
       const margin = 8;
-      // Position above the button, right-aligned to it
-      popover.style.visibility = 'hidden';
-      popover.style.display = 'block';
       const pw = popover.offsetWidth;
-      popover.style.visibility = 'visible';
       let left = rect.right - pw;
-      // Clamp so it never goes off either edge
       left = Math.max(margin, Math.min(left, window.innerWidth - pw - margin));
       popover.style.bottom = (window.innerHeight - rect.top + 8) + 'px';
       popover.style.left = left + 'px';
+    } else {
+      popover?.classList.add('hidden');
     }
-    popover?.classList.toggle('hidden');
   });
 
-  document.addEventListener('click', () => popover?.classList.add('hidden'));
-  popover?.addEventListener('click', (e) => e.stopPropagation());
+  document.addEventListener('click', (e) => {
+    if (e.target !== tipBtn && !popover?.contains(e.target as Node)) {
+      popover?.classList.add('hidden');
+    }
+  });
+
+  window.addEventListener('scroll', () => popover?.classList.add('hidden'), { passive: true });
 
   function showModal(id: string) {
     const modal = document.getElementById(`modal-${id}`) as HTMLElement | null;
