@@ -9,6 +9,8 @@ const links = [
   { label: 'Resume', href: '/resume.pdf' },
 ].filter(Boolean) as { label: string; href: string }[];
 
+const kofi = { id: 'kofi', label: 'Ko-fi', url: 'https://ko-fi.com/savyasachi', color: '#FF5E5B' };
+
 const wallets = [
   { id: 'btc', label: 'BTC', address: 'bc1qc0fv4mactnhkpddhn3h7y63ktzemaetw6pa5fe',  color: '#F7931A' },
   { id: 'eth', label: 'ETH', address: '0xe73B6A122E9B41d8a6c979AEBD109f23A85D01f8',   color: '#627EEA' },
@@ -49,12 +51,32 @@ const wallets = [
         <div
           id="tip-popover"
           class="hidden p-4 rounded-xl border z-50"
-          style="position: fixed; background: var(--color-surface); border-color: var(--color-border); width: 16rem; box-shadow: 0 8px 32px rgba(0,0,0,0.4);"
+          style="position: fixed; background: var(--color-surface); border-color: var(--color-border); width: 18rem; box-shadow: 0 8px 32px rgba(0,0,0,0.4);"
         >
           <p class="text-xs mb-4 leading-relaxed" style="color: var(--color-text-muted);">
             If you found this useful, or just vibing with the stack,
-            consider buying me a coffee!
+            consider supporting me!
           </p>
+
+          <!-- Ko-fi button -->
+          <button
+            class="tip-trigger w-full py-2 px-3 mb-4 rounded-lg text-sm font-semibold border transition-all flex items-center justify-center gap-2"
+            style={`border-color: var(--color-border); color: var(--color-text-muted); background: none; cursor: pointer; font-family: inherit;`}
+            onmouseenter={`this.style.borderColor='${kofi.color}';this.style.color='${kofi.color}';this.style.background='${kofi.color}18';`}
+            onmouseleave="this.style.borderColor='var(--color-border)';this.style.color='var(--color-text-muted)';this.style.background='none';"
+            data-id={kofi.id}
+          >
+            ☕ {kofi.label}
+          </button>
+
+          <!-- Divider -->
+          <div class="flex items-center gap-3 my-4">
+            <div style="flex: 1; height: 1px; background: var(--color-border);"></div>
+            <span class="text-xs" style="color: var(--color-text-muted);">or crypto</span>
+            <div style="flex: 1; height: 1px; background: var(--color-border);"></div>
+          </div>
+
+          <!-- Crypto buttons -->
           <div class="flex gap-2">
             {wallets.map((w) => (
               <button
@@ -74,7 +96,51 @@ const wallets = [
   </div>
 </footer>
 
-<!-- Modals -->
+<!-- Ko-fi Modal -->
+<div
+  id={`modal-${kofi.id}`}
+  class="tip-modal"
+  style="display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; z-index: 50; align-items: center; justify-content: center; padding: 1rem; background: rgba(0,0,0,0.6); backdrop-filter: blur(4px);"
+>
+  <div
+    class="relative rounded-2xl border p-6 flex flex-col items-center gap-4 w-full"
+    style="background: var(--color-surface); border-color: var(--color-border); box-shadow: 0 24px 64px rgba(0,0,0,0.5); max-width: 28rem;"
+  >
+    <button
+      class="modal-close absolute top-4 right-4 transition-colors hover:text-[var(--color-text)]"
+      style="color: var(--color-text-muted); background: none; border: none; cursor: pointer; font-size: 1.1rem; line-height: 1;"
+    >
+      ✕
+    </button>
+
+    <span
+      class="text-xs font-bold rounded-md px-3 py-1"
+      style={`background:${kofi.color};color:#fff;letter-spacing:0.08em;`}
+    >
+      {kofi.label}
+    </span>
+
+    <img
+      src={`https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=${kofi.url}&bgcolor=ffffff&color=000000&margin=8&ecc=H`}
+      alt={`${kofi.label} QR code`}
+      width="180"
+      height="180"
+      class="rounded-lg"
+    />
+
+    <div class="w-full flex flex-col gap-2">
+      <code class="w-full block text-xs text-center break-all" style="color: var(--color-text-muted);">{kofi.url}</code>
+      <button
+        class="open-kofi w-full py-2 rounded-lg text-sm font-medium transition-opacity hover:opacity-80"
+        style="background: var(--color-accent); color: var(--color-bg);"
+      >
+        Open Ko-fi →
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- Crypto Modals -->
 {wallets.map((w) => (
   <div
     id={`modal-${w.id}`}
@@ -177,5 +243,9 @@ const wallets = [
       btn.textContent = 'Copied!';
       setTimeout(() => { btn.textContent = 'Copy address'; }, 2000);
     });
+  });
+
+  document.querySelector('.open-kofi')?.addEventListener('click', () => {
+    window.open('https://ko-fi.com/savyasachi', '_blank');
   });
 </script>
