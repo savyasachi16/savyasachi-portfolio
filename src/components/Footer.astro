@@ -58,37 +58,55 @@ const wallets = [
             consider supporting me!
           </p>
 
-          <!-- Ko-fi button -->
-          <button
-            class="tip-trigger w-full py-2 px-3 mb-4 rounded-lg text-sm font-semibold border transition-all flex items-center justify-center gap-2"
-            style={`border-color: var(--color-border); color: var(--color-text-muted); background: none; cursor: pointer; font-family: inherit;`}
-            onmouseenter={`this.style.borderColor='${kofi.color}';this.style.color='${kofi.color}';this.style.background='${kofi.color}18';`}
-            onmouseleave="this.style.borderColor='var(--color-border)';this.style.color='var(--color-text-muted)';this.style.background='none';"
-            data-id={kofi.id}
-          >
-            ☕ {kofi.label}
-          </button>
+          <!-- All tip options stacked vertically -->
+          <div class="flex flex-col gap-2 items-center">
+            <!-- Ko-fi -->
+            <button
+              class="tip-trigger py-2 px-3 rounded-lg text-xs font-semibold border transition-all flex items-center justify-center gap-2 w-fit"
+              style={`border-color: var(--color-border); color: var(--color-text-muted); background: none; cursor: pointer; font-family: inherit;`}
+              onmouseenter={`this.style.borderColor='${kofi.color}';this.style.color='${kofi.color}';this.style.background='${kofi.color}18';`}
+              onmouseleave="this.style.borderColor='var(--color-border)';this.style.color='var(--color-text-muted)';this.style.background='none';"
+              data-id={kofi.id}
+            >
+              <span style="font-size: 1rem;">☕</span>
+              <span>{kofi.label}</span>
+            </button>
 
-          <!-- Divider -->
-          <div class="flex items-center gap-3 my-4">
-            <div style="flex: 1; height: 1px; background: var(--color-border);"></div>
-            <span class="text-xs" style="color: var(--color-text-muted);">or crypto</span>
-            <div style="flex: 1; height: 1px; background: var(--color-border);"></div>
-          </div>
+            <!-- BTC -->
+            <button
+              class="tip-trigger py-2 px-3 rounded-lg text-xs font-semibold border transition-all flex items-center justify-center gap-2 w-fit"
+              style={`border-color: var(--color-border); color: var(--color-text-muted); background: none; cursor: pointer; font-family: inherit;`}
+              onmouseenter={`this.style.borderColor='#F7931A';this.style.color='#F7931A';this.style.background='#F7931A18';`}
+              onmouseleave="this.style.borderColor='var(--color-border)';this.style.color='var(--color-text-muted)';this.style.background='none';"
+              data-id="btc"
+            >
+              <span style="font-size: 1rem; color: #F7931A;">₿</span>
+              <span>BTC</span>
+            </button>
 
-          <!-- Crypto buttons -->
-          <div class="flex gap-2">
-            {wallets.map((w) => (
-              <button
-                class="tip-trigger flex-1 py-1.5 rounded-lg text-xs font-semibold border transition-all"
-                style={`border-color: var(--color-border); color: var(--color-text-muted); background: none; cursor: pointer; font-family: inherit;`}
-                onmouseenter={`this.style.borderColor='${w.color}';this.style.color='${w.color}';this.style.background='${w.color}18';`}
-                onmouseleave="this.style.borderColor='var(--color-border)';this.style.color='var(--color-text-muted)';this.style.background='none';"
-                data-id={w.id}
-              >
-                {w.label}
-              </button>
-            ))}
+            <!-- ETH -->
+            <button
+              class="tip-trigger py-2 px-3 rounded-lg text-xs font-semibold border transition-all flex items-center justify-center gap-2"
+              style={`border-color: var(--color-border); color: var(--color-text-muted); background: none; cursor: pointer; font-family: inherit;`}
+              onmouseenter={`this.style.borderColor='#627EEA';this.style.color='#627EEA';this.style.background='#627EEA18';`}
+              onmouseleave="this.style.borderColor='var(--color-border)';this.style.color='var(--color-text-muted)';this.style.background='none';"
+              data-id="eth"
+            >
+              <span style="font-size: 1rem; color: #627EEA;">Ξ</span>
+              <span>ETH</span>
+            </button>
+
+            <!-- LTC -->
+            <button
+              class="tip-trigger py-2 px-3 rounded-lg text-xs font-semibold border transition-all flex items-center justify-center gap-2"
+              style={`border-color: var(--color-border); color: var(--color-text-muted); background: none; cursor: pointer; font-family: inherit;`}
+              onmouseenter={`this.style.borderColor='#345D9D';this.style.color='#345D9D';this.style.background='#345D9D18';`}
+              onmouseleave="this.style.borderColor='var(--color-border)';this.style.color='var(--color-text-muted)';this.style.background='none';"
+              data-id="ltc"
+            >
+              <span style="font-size: 1rem; color: #345D9D;">Ł</span>
+              <span>LTC</span>
+            </button>
           </div>
         </div>
       </div>
