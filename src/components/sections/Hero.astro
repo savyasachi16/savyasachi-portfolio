@@ -27,14 +27,12 @@ const { name, bio, social, titles } = config;
     </h1>
     <p class="text-lg mb-6 -mt-2" style="color: var(--color-text-muted); font-family: 'Syne', sans-serif;">but everyone calls me {name.nickname}</p>
 
-    <div class="flex flex-wrap gap-2 mb-6">
+    <div class="flex flex-wrap items-center gap-x-3 gap-y-1 mb-6">
       {titles.map((t, i) => (
-        <span
-          class="px-3 py-1 text-sm rounded-full border font-medium"
-          style={i === 0
-            ? 'border-color: var(--color-accent); color: var(--color-accent); background: var(--color-accent-glow);'
-            : 'border-color: var(--color-border); color: var(--color-text-muted);'}
-        >{t}</span>
+        <>
+          {i > 0 && <span style="color: var(--color-border);">·</span>}
+          <span class="text-base font-medium" style="color: var(--color-text-muted);">{t}</span>
+        </>
       ))}
     </div>
 
