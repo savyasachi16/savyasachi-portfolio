@@ -9,12 +9,20 @@ import SectionHeading from '../ui/SectionHeading.astro';
     <div class="mb-8">
       <h3 class="text-xs font-semibold uppercase tracking-widest mb-6" style="color: var(--color-text-muted);">Interests</h3>
       <div class="flex flex-wrap gap-2">
-        {['Reading', 'Skiing', 'Motorcycling', 'Petrolhead', 'F1', 'Running', 'Kettlebells'].map((label) => (
+        {[
+          { label: 'Reading',       icon: '📚' },
+          { label: 'Skiing',        icon: '⛷️' },
+          { label: 'Motorcycling',  icon: '🏍️' },
+          { label: 'Petrolhead',    icon: '🚗' },
+          { label: 'F1',            icon: '🏎️' },
+          { label: 'Running',       icon: '🏃' },
+          { label: 'Kettlebells',   icon: '🏋️' },
+        ].map(({ label, icon }) => (
           <span
-            class="inline-flex items-center px-4 py-1.5 rounded-full border text-sm"
+            class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border text-sm"
             style="border-color: var(--color-border); color: var(--color-text-muted); background: color-mix(in srgb, var(--color-accent-glow) 40%, transparent);"
           >
-            {label}
+            <span>{icon}</span>{label}
           </span>
         ))}
       </div>
