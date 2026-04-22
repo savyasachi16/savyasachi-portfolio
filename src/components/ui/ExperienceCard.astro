@@ -8,16 +8,15 @@ interface Props {
 const { experience } = Astro.props;
 ---
 
-<div class="relative pl-6 border-l-2" style="border-color: color-mix(in srgb, var(--color-accent) 30%, transparent);">
-  <!-- Company header -->
+<div class="exp-root relative pl-6 border-l-2">
   <div class="mb-4">
     {experience.companyUrl ? (
       <a
         href={experience.companyUrl}
         target="_blank"
         rel="noopener noreferrer"
-        class="text-lg font-semibold transition-colors hover:text-[var(--color-accent)]"
-        style="font-family: 'Syne', sans-serif; color: var(--color-text);"
+        class="exp-company-link text-lg font-semibold"
+        style="font-family: 'Syne', sans-serif;"
       >
         {experience.company}
       </a>
@@ -29,57 +28,79 @@ const { experience } = Astro.props;
     <span class="block text-sm" style="color: var(--color-text-muted);">{experience.location}</span>
   </div>
 
-  <!-- Roles -->
   <div class="flex flex-col gap-6">
-    {experience.roles.map((role) => (
-      <div class="relative">
-        <!-- Timeline dot -->
-        <div
-          class="absolute -left-[1.875rem] top-2 w-2.5 h-2.5 rounded-full"
-          style="background: var(--color-accent); box-shadow: 0 0 0 3px var(--color-bg);"
-        />
+    {experience.roles.map((role) => {
+      const hasAccomplishments = role.accomplishments.length > 0;
+      return (
+        <div class="relative">
+          <div
+            class="absolute -left-[1.875rem] top-2 w-2.5 h-2.5 rounded-full"
+            style="background: var(--color-accent); box-shadow: 0 0 0 3px var(--color-bg);"
+          />
 
-        <details class="group">
-          <summary
-            class="flex items-center justify-between gap-4 cursor-pointer list-none select-none rounded-lg px-3 py-2 -mx-3 transition-colors"
-            style="color: var(--color-text);"
-            onmouseenter="this.style.background='color-mix(in srgb, var(--color-accent-glow) 60%, transparent)'"
-            onmouseleave="this.style.background='transparent'"
-          >
-            <div>
-              <span class="font-medium block">{role.title}</span>
-              <span class="text-sm" style="color: var(--color-text-muted);">{role.startDate} – {role.endDate}</span>
+          {hasAccomplishments ? (
+            <details class="group">
+              <summary class="exp-summary flex items-center justify-between gap-4 cursor-pointer list-none select-none rounded-lg px-3 py-2 -mx-3">
+                <div>
+                  <span class="font-medium block">{role.title}</span>
+                  <span class="text-sm" style="color: var(--color-text-muted);">{role.startDate} – {role.endDate}</span>
+                </div>
+                <svg
+                  class="shrink-0 transition-transform duration-200 group-open:rotate-180"
+                  style="color: var(--color-text-muted);"
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="20"
+                  height="20"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path d="m6 9 6 6 6-6"/>
+                </svg>
+              </summary>
+
+              <ul class="flex flex-col gap-2 mt-3 pl-1">
+                {role.accomplishments.map((item) => (
+                  <li class="text-base leading-relaxed pl-4 relative" style="color: var(--color-text-muted);">
+                    <span class="absolute left-0" style="color: color-mix(in srgb, var(--color-accent) 60%, transparent);">•</span>
+                    {item}
+                  </li>
+                ))}
+              </ul>
+            </details>
+          ) : (
+            <div class="flex items-center gap-4 px-3 py-2 -mx-3">
+              <div>
+                <span class="font-medium block" style="color: var(--color-text);">{role.title}</span>
+                <span class="text-sm" style="color: var(--color-text-muted);">{role.startDate} – {role.endDate}</span>
+              </div>
             </div>
-            <!-- Chevron -->
-            <svg
-              class="shrink-0 transition-transform duration-200 group-open:rotate-180"
-              style="color: var(--color-text-muted);"
-              xmlns="http://www.w3.org/2000/svg"
-              width="20"
-              height="20"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            >
-              <path d="m6 9 6 6 6-6"/>
-            </svg>
-          </summary>
-
-          {role.accomplishments.length > 0 && (
-            <ul class="flex flex-col gap-2 mt-3 pl-1">
-              {role.accomplishments.map((item) => (
-                <li class="text-base leading-relaxed pl-4 relative" style="color: var(--color-text-muted);">
-                  <span class="absolute left-0" style="color: color-mix(in srgb, var(--color-accent) 60%, transparent);">•</span>
-                  {item}
-                </li>
-              ))}
-            </ul>
           )}
-        </details>
-      </div>
-    ))}
+        </div>
+      );
+    })}
   </div>
 </div>
+
+<style>
+  .exp-root {
+    border-color: color-mix(in srgb, var(--color-accent) 30%, transparent);
+  }
+  .exp-company-link {
+    color: var(--color-text);
+    transition: color 0.15s;
+  }
+  .exp-company-link:hover {
+    color: var(--color-accent);
+  }
+  .exp-summary {
+    color: var(--color-text);
+    transition: background 0.15s;
+  }
+  .exp-summary:hover {
+    background: color-mix(in srgb, var(--color-accent-glow) 60%, transparent);
+  }
+</style>

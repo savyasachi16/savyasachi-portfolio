@@ -11,6 +11,7 @@ import { config } from '../../data/config';
     </p>
 
     <form
+      id="contact-form"
       action="https://formspree.io/f/xqewlkyl"
       method="POST"
       class="flex flex-col gap-4 max-w-lg mb-10"
@@ -20,29 +21,34 @@ import { config } from '../../data/config';
         name="name"
         placeholder="Name"
         required
-        class="px-4 py-3 rounded-lg border border-[var(--color-border)] bg-[var(--color-surface)] text-[var(--color-text)] placeholder:text-[var(--color-text-muted)] text-sm focus:outline-none focus:border-[var(--color-accent)] transition-colors"
+        class="contact-field px-4 py-3 rounded-lg border text-sm"
       />
       <input
         type="email"
         name="email"
         placeholder="Email"
         required
-        class="px-4 py-3 rounded-lg border border-[var(--color-border)] bg-[var(--color-surface)] text-[var(--color-text)] placeholder:text-[var(--color-text-muted)] text-sm focus:outline-none focus:border-[var(--color-accent)] transition-colors"
+        class="contact-field px-4 py-3 rounded-lg border text-sm"
       />
       <textarea
         name="message"
         placeholder="Message"
         rows="5"
         required
-        class="px-4 py-3 rounded-lg border border-[var(--color-border)] bg-[var(--color-surface)] text-[var(--color-text)] placeholder:text-[var(--color-text-muted)] text-sm focus:outline-none focus:border-[var(--color-accent)] transition-colors resize-none"
+        class="contact-field px-4 py-3 rounded-lg border text-sm resize-none"
       ></textarea>
       <input type="hidden" name="_subject" value="Portfolio Contact" />
-      <button
-        type="submit"
-        class="self-start px-5 py-2.5 rounded-lg bg-[var(--color-accent)] text-white text-sm font-medium hover:opacity-90 transition-opacity"
-      >
-        Send message
-      </button>
+      <div class="flex items-center gap-4">
+        <button
+          id="contact-submit"
+          type="submit"
+          class="self-start px-5 py-2.5 rounded-lg text-sm font-medium"
+          style="background: var(--color-accent); color: white; transition: opacity .15s;"
+        >
+          Send message
+        </button>
+        <p id="contact-status" class="text-sm" aria-live="polite" style="color: var(--color-text-muted);"></p>
+      </div>
     </form>
 
     <div class="flex flex-wrap gap-3">
@@ -52,3 +58,56 @@ import { config } from '../../data/config';
     </div>
   </div>
 </section>
+
+<style>
+  .contact-field {
+    border-color: var(--color-border);
+    background: var(--color-surface);
+    color: var(--color-text);
+    transition: border-color 0.15s;
+  }
+  .contact-field::placeholder { color: var(--color-text-muted); }
+  .contact-field:focus {
+    outline: none;
+    border-color: var(--color-accent);
+  }
+  #contact-submit:hover:not(:disabled) { opacity: 0.9; }
+  #contact-submit:disabled { opacity: 0.6; cursor: not-allowed; }
+</style>
+
+<script>
+  const form = document.getElementById('contact-form') as HTMLFormElement | null;
+  const status = document.getElementById('contact-status');
+  const submit = document.getElementById('contact-submit') as HTMLButtonElement | null;
+
+  form?.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    if (!submit || !status) return;
+
+    submit.disabled = true;
+    status.style.color = 'var(--color-text-muted)';
+    status.textContent = 'Sending…';
+
+    try {
+      const res = await fetch(form.action, {
+        method: 'POST',
+        headers: { Accept: 'application/json' },
+        body: new FormData(form),
+      });
+
+      if (res.ok) {
+        form.reset();
+        status.style.color = 'var(--color-accent)';
+        status.textContent = 'Message sent. Thanks!';
+      } else {
+        status.style.color = '#e77';
+        status.textContent = 'Something went wrong. Try again or email me directly.';
+      }
+    } catch {
+      status.style.color = '#e77';
+      status.textContent = 'Network error. Try again or email me directly.';
+    } finally {
+      submit.disabled = false;
+    }
+  });
+</script>

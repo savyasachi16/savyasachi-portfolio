@@ -4,7 +4,7 @@
   --color-bg: #0c0f14;
   --color-surface: #131820;
   --color-text: #e8edf5;
-  --color-text-muted: #8a9ab5;
+  --color-text-muted: #92a4bf;
   --color-accent: #7eb8f7;
   --color-accent-glow: rgba(126, 184, 247, 0.15);
   --color-border: #1e2a3a;
@@ -30,4 +30,13 @@ h2, h3 {
 @keyframes orb-pulse {
   0%, 100% { transform: scale(1);   opacity: 0.6; }
   50%       { transform: scale(1.2); opacity: 1;   }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }

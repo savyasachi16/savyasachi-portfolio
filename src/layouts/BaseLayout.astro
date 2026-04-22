@@ -2,6 +2,7 @@
 import '../styles/global.css';
 import { config } from '../data/config';
 import Analytics from '@vercel/analytics/astro';
+import SpeedInsights from '@vercel/speed-insights/astro';
 
 interface Props {
   title?: string;
@@ -12,6 +13,26 @@ const {
   title = `${config.name.first} ${config.name.last} — Software Engineer`,
   description = config.metaDescription,
 } = Astro.props;
+
+const canonical = new URL(Astro.url.pathname, config.siteUrl).href;
+const ogImage = new URL('/og.png', config.siteUrl).href;
+
+const personSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  name: `${config.name.first} ${config.name.last}`,
+  alternateName: config.name.nickname,
+  url: config.siteUrl,
+  image: new URL('/avatar.jpg', config.siteUrl).href,
+  email: `mailto:${config.social.email}`,
+  jobTitle: config.titles[0],
+  address: {
+    '@type': 'PostalAddress',
+    addressRegion: 'CA',
+    addressCountry: 'US',
+  },
+  sameAs: [config.social.github, config.social.linkedin].filter(Boolean),
+};
 ---
 
 <!doctype html>
@@ -20,23 +41,40 @@ const {
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content={description} />
+    <meta name="theme-color" content="#0c0f14" media="(prefers-color-scheme: dark)" />
+    <meta name="theme-color" content="#f0f5fc" media="(prefers-color-scheme: light)" />
+
+    <link rel="canonical" href={canonical} />
+    <link rel="manifest" href="/site.webmanifest" />
+
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
-    <meta property="og:url" content="https://savyasachi.dev" />
+    <meta property="og:url" content={canonical} />
     <meta property="og:type" content="website" />
-    <meta name="twitter:card" content="summary" />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content={`${config.name.first} ${config.name.last} — Software Engineer`} />
+
+    <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
+
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="icon" href="/favicon.ico" />
     <meta name="generator" content={Astro.generator} />
     <title>{title}</title>
+
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preconnect" href="https://i.scdn.co" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&family=Syne:wght@600;700;800&display=swap"
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600&family=Syne:wght@600;700;800&display=swap"
       rel="stylesheet"
     />
+
+    <script type="application/ld+json" set:html={JSON.stringify(personSchema)} />
 
     <style is:global>
       [data-theme="light"] {
@@ -50,7 +88,6 @@ const {
       }
     </style>
 
-    <!-- Read localStorage before first paint to avoid flash -->
     <script is:inline>
       (function () {
         const mode = localStorage.getItem('themeMode') || 'system';
@@ -62,5 +99,6 @@ const {
   <body class="min-h-screen bg-[var(--color-bg)] text-[var(--color-text)] transition-colors duration-200">
     <slot />
     <Analytics />
+    <SpeedInsights />
   </body>
 </html>

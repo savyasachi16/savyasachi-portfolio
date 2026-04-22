@@ -4,15 +4,8 @@ const { name, bio, social, titles } = config;
 ---
 
 <section class="relative min-h-[calc(100vh-3.5rem)] flex items-center overflow-hidden">
-  <!-- Gradient orbs -->
-  <div
-    class="pointer-events-none absolute -top-32 -left-32 w-[500px] h-[500px] rounded-full"
-    style="background: var(--color-accent-glow); filter: blur(80px); animation: orb-pulse 8s ease-in-out infinite;"
-  ></div>
-  <div
-    class="pointer-events-none absolute -bottom-32 -right-16 w-[400px] h-[400px] rounded-full"
-    style="background: var(--color-accent-glow); filter: blur(80px); animation: orb-pulse 8s ease-in-out infinite; animation-delay: 4s;"
-  ></div>
+  <div class="orb orb-a pointer-events-none absolute -top-32 -left-32 w-[500px] h-[500px] rounded-full"></div>
+  <div class="orb orb-b pointer-events-none absolute -bottom-32 -right-16 w-[400px] h-[400px] rounded-full"></div>
 
   <div class="relative z-10 max-w-6xl mx-auto px-6 py-16 w-full">
     <p class="text-sm font-medium mb-4 tracking-widest uppercase" style="color: var(--color-accent);">
@@ -23,7 +16,7 @@ const { name, bio, social, titles } = config;
       class="text-5xl md:text-7xl font-bold tracking-tight mb-4"
       style="font-family: 'Syne', sans-serif; color: var(--color-text);"
     >
-      <span id="hero-name-text" data-first={name.first} data-last={name.last}></span><span id="hero-cursor" class="hero-cursor">|</span>
+      <span id="hero-name-text" data-first={name.first} data-last={name.last}>{name.first}<br />{name.last}</span><span id="hero-cursor" class="hero-cursor" aria-hidden="true">|</span>
     </h1>
     <p class="text-lg mb-6 -mt-2" style="color: var(--color-text-muted); font-family: 'Syne', sans-serif;">but everyone calls me {name.nickname}</p>
 
@@ -43,8 +36,7 @@ const { name, bio, social, titles } = config;
     <div class="flex flex-wrap gap-4 mb-12">
       <a
         href="#experience"
-        class="px-5 py-2.5 rounded-lg text-sm font-medium transition-opacity hover:opacity-90"
-        style="background: var(--color-accent); color: var(--color-bg);"
+        class="hero-cta-primary px-5 py-2.5 rounded-lg text-sm font-medium"
       >
         View my work
       </a>
@@ -52,10 +44,7 @@ const { name, bio, social, titles } = config;
         href="/resume.pdf"
         target="_blank"
         rel="noopener noreferrer"
-        class="px-5 py-2.5 rounded-lg border text-sm font-medium transition-colors"
-        style="border-color: var(--color-border); color: var(--color-text-muted);"
-        onmouseenter="this.style.borderColor='var(--color-accent)'; this.style.color='var(--color-text)'"
-        onmouseleave="this.style.borderColor='var(--color-border)'; this.style.color='var(--color-text-muted)'"
+        class="hero-cta-secondary px-5 py-2.5 rounded-lg border text-sm font-medium"
       >
         Download Resume
       </a>
@@ -63,28 +52,12 @@ const { name, bio, social, titles } = config;
 
     <div class="flex gap-4">
       {social.github && (
-        <a
-          href={social.github}
-          target="_blank"
-          rel="noopener noreferrer"
-          class="text-sm transition-colors"
-          style="color: var(--color-text-muted);"
-          onmouseenter="this.style.color='var(--color-text)'"
-          onmouseleave="this.style.color='var(--color-text-muted)'"
-        >
+        <a href={social.github} target="_blank" rel="noopener noreferrer" class="hero-social text-sm">
           GitHub ↗
         </a>
       )}
       {social.linkedin && (
-        <a
-          href={social.linkedin}
-          target="_blank"
-          rel="noopener noreferrer"
-          class="text-sm transition-colors"
-          style="color: var(--color-text-muted);"
-          onmouseenter="this.style.color='var(--color-text)'"
-          onmouseleave="this.style.color='var(--color-text-muted)'"
-        >
+        <a href={social.linkedin} target="_blank" rel="noopener noreferrer" class="hero-social text-sm">
           LinkedIn ↗
         </a>
       )}
@@ -93,39 +66,78 @@ const { name, bio, social, titles } = config;
 </section>
 
 <style>
+  .orb {
+    background: var(--color-accent-glow);
+    filter: blur(80px);
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    .orb-a { animation: orb-pulse 8s ease-in-out infinite; }
+    .orb-b { animation: orb-pulse 8s ease-in-out infinite; animation-delay: 4s; }
+  }
   .hero-cursor {
     display: inline-block;
     margin-left: 2px;
     color: var(--color-accent);
-    animation: blink 1s step-start infinite;
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    .hero-cursor {
+      animation: blink 1s step-start infinite;
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    #hero-cursor { display: none; }
   }
   @keyframes blink {
     0%, 100% { opacity: 1; }
     50%       { opacity: 0; }
   }
+  .hero-cta-primary {
+    background: var(--color-accent);
+    color: var(--color-bg);
+    transition: opacity 0.15s;
+  }
+  .hero-cta-primary:hover { opacity: 0.9; }
+  .hero-cta-secondary {
+    border-color: var(--color-border);
+    color: var(--color-text-muted);
+    transition: color 0.15s, border-color 0.15s;
+  }
+  .hero-cta-secondary:hover {
+    border-color: var(--color-accent);
+    color: var(--color-text);
+  }
+  .hero-social {
+    color: var(--color-text-muted);
+    transition: color 0.15s;
+  }
+  .hero-social:hover { color: var(--color-text); }
 </style>
 
 <script>
-  const nameEl = document.getElementById('hero-name-text') as HTMLElement;
-  const part1 = nameEl.dataset.first ?? '';
-  const part2 = nameEl.dataset.last ?? '';
-  const speed = 80;
+  const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (!prefersReduced) {
+    const nameEl = document.getElementById('hero-name-text') as HTMLElement;
+    const part1 = nameEl.dataset.first ?? '';
+    const part2 = nameEl.dataset.last ?? '';
+    const speed = 80;
 
-  function sleep(ms: number) {
-    return new Promise(r => setTimeout(r, ms));
-  }
-
-  async function typeHero() {
-    for (let i = 0; i <= part1.length; i++) {
-      nameEl.innerHTML = part1.slice(0, i);
-      await sleep(speed);
+    function sleep(ms: number) {
+      return new Promise(r => setTimeout(r, ms));
     }
-    nameEl.innerHTML = part1 + '<br>';
-    for (let i = 0; i <= part2.length; i++) {
-      nameEl.innerHTML = part1 + '<br>' + part2.slice(0, i);
-      await sleep(speed);
-    }
-  }
 
-  typeHero();
+    async function typeHero() {
+      nameEl.innerHTML = '';
+      for (let i = 0; i <= part1.length; i++) {
+        nameEl.innerHTML = part1.slice(0, i);
+        await sleep(speed);
+      }
+      nameEl.innerHTML = part1 + '<br>';
+      for (let i = 0; i <= part2.length; i++) {
+        nameEl.innerHTML = part1 + '<br>' + part2.slice(0, i);
+        await sleep(speed);
+      }
+    }
+
+    typeHero();
+  }
 </script>

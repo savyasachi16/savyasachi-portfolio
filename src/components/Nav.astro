@@ -5,29 +5,24 @@ const fullName = `${config.name.first} ${config.name.last}`;
 
 <header class="sticky top-0 z-50 border-b border-[var(--color-border)] bg-[var(--color-bg)]/90 backdrop-blur-sm transition-colors duration-200">
   <nav class="max-w-6xl mx-auto px-6 h-14 flex items-center justify-between">
-    <a href="/" class="text-sm font-semibold tracking-wide transition-colors hover:text-[var(--color-accent)]" style="color: var(--color-text); font-family: 'Syne', sans-serif;">
+    <a href="/" class="nav-brand text-sm font-semibold tracking-wide" style="font-family: 'Syne', sans-serif;">
       {fullName}
     </a>
 
     <div class="flex items-center gap-3">
-      <!-- Desktop nav links -->
       <ul class="hidden md:flex items-center gap-6">
-        <li><a href="#experience" class="text-sm transition-colors hover:text-[var(--color-text)]" style="color: var(--color-text-muted);">Experience</a></li>
-        <li><a href="#projects"   class="text-sm transition-colors hover:text-[var(--color-text)]" style="color: var(--color-text-muted);">Projects</a></li>
-        <li><a href="#skills"     class="text-sm transition-colors hover:text-[var(--color-text)]" style="color: var(--color-text-muted);">Skills</a></li>
-        <li><a href="#education"  class="text-sm transition-colors hover:text-[var(--color-text)]" style="color: var(--color-text-muted);">Education</a></li>
-        <li><a href="#beyond"     class="text-sm transition-colors hover:text-[var(--color-text)]" style="color: var(--color-text-muted);">Beyond</a></li>
-        <li><a href="#contact"    class="text-sm transition-colors hover:text-[var(--color-text)]" style="color: var(--color-text-muted);">Contact</a></li>
+        <li><a href="#experience" class="nav-link text-sm">Experience</a></li>
+        <li><a href="#projects"   class="nav-link text-sm">Projects</a></li>
+        <li><a href="#skills"     class="nav-link text-sm">Skills</a></li>
+        <li><a href="#education"  class="nav-link text-sm">Education</a></li>
+        <li><a href="#beyond"     class="nav-link text-sm">Beyond</a></li>
+        <li><a href="#contact"    class="nav-link text-sm">Contact</a></li>
       </ul>
 
-      <!-- Theme toggle -->
       <button
         id="theme-toggle"
         aria-label="Toggle theme"
-        class="w-8 h-8 flex items-center justify-center rounded-lg border transition-all duration-200 hover:scale-110"
-        style="border-color: var(--color-border); color: var(--color-text-muted); background: color-mix(in srgb, var(--color-accent-glow) 50%, transparent);"
-        onmouseenter="this.style.borderColor='var(--color-accent)'; this.style.color='var(--color-accent)'"
-        onmouseleave="this.style.borderColor='var(--color-border)'; this.style.color='var(--color-text-muted)'"
+        class="theme-btn w-8 h-8 flex items-center justify-center rounded-lg border"
       >
         <svg id="icon-sun" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <circle cx="12" cy="12" r="4"/>
@@ -50,12 +45,12 @@ const fullName = `${config.name.first} ${config.name.last}`;
         </svg>
       </button>
 
-      <!-- Hamburger (mobile only) -->
       <button
         id="menu-toggle"
         aria-label="Toggle menu"
-        class="md:hidden w-8 h-8 flex items-center justify-center rounded-lg border transition-all duration-200"
-        style="border-color: var(--color-border); color: var(--color-text-muted);"
+        aria-expanded="false"
+        aria-controls="mobile-menu"
+        class="menu-btn md:hidden w-8 h-8 flex items-center justify-center rounded-lg border"
       >
         <svg id="icon-menu" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <line x1="3" y1="6"  x2="21" y2="6"/>
@@ -70,22 +65,48 @@ const fullName = `${config.name.first} ${config.name.last}`;
     </div>
   </nav>
 
-  <!-- Mobile menu -->
   <div
     id="mobile-menu"
     class="hidden md:hidden border-t px-6 py-4"
     style="border-color: var(--color-border); background: var(--color-bg);"
   >
     <ul class="flex flex-col gap-4">
-      <li><a href="#experience" class="mobile-nav-link text-sm transition-colors hover:text-[var(--color-text)]" style="color: var(--color-text-muted);">Experience</a></li>
-      <li><a href="#projects"   class="mobile-nav-link text-sm transition-colors hover:text-[var(--color-text)]" style="color: var(--color-text-muted);">Projects</a></li>
-      <li><a href="#skills"     class="mobile-nav-link text-sm transition-colors hover:text-[var(--color-text)]" style="color: var(--color-text-muted);">Skills</a></li>
-      <li><a href="#education"  class="mobile-nav-link text-sm transition-colors hover:text-[var(--color-text)]" style="color: var(--color-text-muted);">Education</a></li>
-      <li><a href="#beyond"     class="mobile-nav-link text-sm transition-colors hover:text-[var(--color-text)]" style="color: var(--color-text-muted);">Beyond</a></li>
-      <li><a href="#contact"    class="mobile-nav-link text-sm transition-colors hover:text-[var(--color-text)]" style="color: var(--color-text-muted);">Contact</a></li>
+      <li><a href="#experience" class="mobile-nav-link nav-link text-sm">Experience</a></li>
+      <li><a href="#projects"   class="mobile-nav-link nav-link text-sm">Projects</a></li>
+      <li><a href="#skills"     class="mobile-nav-link nav-link text-sm">Skills</a></li>
+      <li><a href="#education"  class="mobile-nav-link nav-link text-sm">Education</a></li>
+      <li><a href="#beyond"     class="mobile-nav-link nav-link text-sm">Beyond</a></li>
+      <li><a href="#contact"    class="mobile-nav-link nav-link text-sm">Contact</a></li>
     </ul>
   </div>
 </header>
+
+<style>
+  .nav-brand {
+    color: var(--color-text);
+    transition: color 0.15s;
+  }
+  .nav-brand:hover { color: var(--color-accent); }
+  .nav-link {
+    color: var(--color-text-muted);
+    transition: color 0.15s;
+  }
+  .nav-link:hover { color: var(--color-text); }
+  .theme-btn, .menu-btn {
+    border-color: var(--color-border);
+    color: var(--color-text-muted);
+    transition: border-color 0.2s, color 0.2s, transform 0.2s;
+  }
+  .theme-btn {
+    background: color-mix(in srgb, var(--color-accent-glow) 50%, transparent);
+  }
+  .theme-btn:hover {
+    border-color: var(--color-accent);
+    color: var(--color-accent);
+    transform: scale(1.1);
+  }
+  .menu-btn:hover { color: var(--color-text); }
+</style>
 
 <script>
   function initTheme() {
@@ -133,30 +154,33 @@ const fullName = `${config.name.first} ${config.name.last}`;
     const iconMenu  = document.getElementById('icon-menu');
     const iconClose = document.getElementById('icon-close');
 
+    function setOpen(open: boolean) {
+      menu?.classList.toggle('hidden', !open);
+      iconMenu?.classList.toggle('hidden', open);
+      iconClose?.classList.toggle('hidden', !open);
+      toggle?.setAttribute('aria-expanded', open ? 'true' : 'false');
+    }
+
     toggle?.addEventListener('click', () => {
       const open = !menu?.classList.contains('hidden');
-      menu?.classList.toggle('hidden', open);
-      iconMenu?.classList.toggle('hidden', !open);
-      iconClose?.classList.toggle('hidden', open);
+      setOpen(!open);
     });
 
-    // Close on link click
     document.querySelectorAll('.mobile-nav-link').forEach(link => {
-      link.addEventListener('click', () => {
-        menu?.classList.add('hidden');
-        iconMenu?.classList.remove('hidden');
-        iconClose?.classList.add('hidden');
-      });
+      link.addEventListener('click', () => setOpen(false));
     });
 
-    // Close on tap outside
     document.addEventListener('click', (e) => {
       if (!menu?.classList.contains('hidden') &&
           !menu?.contains(e.target as Node) &&
           e.target !== toggle) {
-        menu?.classList.add('hidden');
-        iconMenu?.classList.remove('hidden');
-        iconClose?.classList.add('hidden');
+        setOpen(false);
+      }
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && !menu?.classList.contains('hidden')) {
+        setOpen(false);
       }
     });
   }
@@ -170,7 +194,7 @@ const fullName = `${config.name.first} ${config.name.last}`;
         if (entry.isIntersecting) {
           navLinks.forEach(link => {
             const active = link.getAttribute('href') === `#${entry.target.id}`;
-            link.style.color = active ? 'var(--color-text)' : 'var(--color-text-muted)';
+            link.style.color = active ? 'var(--color-text)' : '';
           });
         }
       });

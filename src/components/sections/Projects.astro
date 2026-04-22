@@ -1,5 +1,6 @@
 ---
 import { projects } from '../../data/projects';
+import { config } from '../../data/config';
 import ProjectCard from '../ui/ProjectCard.astro';
 ---
 
@@ -11,5 +12,25 @@ import ProjectCard from '../ui/ProjectCard.astro';
         <ProjectCard project={project} />
       ))}
     </div>
+    {config.social.github && (
+      <p class="mt-8 text-sm">
+        <a
+          href={config.social.github}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="projects-more-link"
+        >
+          More on GitHub ↗
+        </a>
+      </p>
+    )}
   </div>
 </section>
+
+<style>
+  .projects-more-link {
+    color: var(--color-text-muted);
+    transition: color 0.15s;
+  }
+  .projects-more-link:hover { color: var(--color-accent); }
+</style>

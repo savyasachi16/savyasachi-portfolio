@@ -11,10 +11,8 @@ const glow = project.color ? `${project.color}22` : 'var(--color-accent-glow)';
 ---
 
 <article
-  class="flex flex-col gap-4 p-6 rounded-xl border backdrop-blur-sm transition-all duration-200 hover:shadow-lg"
-  style={`background: color-mix(in srgb, var(--color-surface) 70%, transparent); border-color: var(--color-border); box-shadow: 0 0 0 transparent; --card-color: ${color}; --card-glow: ${glow};`}
-  onmouseenter={`this.style.boxShadow='0 8px 32px ${glow}'; this.style.borderColor='${color}'`}
-  onmouseleave="this.style.boxShadow='0 0 0 transparent'; this.style.borderColor='var(--color-border)'"
+  class="project-card flex flex-col gap-4 p-6 rounded-xl border backdrop-blur-sm"
+  style={`--card-color: ${color}; --card-glow: ${glow};`}
 >
   <div class="flex items-start justify-between gap-4">
     <h3 class="font-semibold" style="font-family: 'Syne', sans-serif; color: var(--card-color);">
@@ -24,8 +22,7 @@ const glow = project.color ? `${project.color}22` : 'var(--color-accent-glow)';
       href={project.githubUrl}
       target="_blank"
       rel="noopener noreferrer"
-      class="shrink-0 text-xs transition-colors hover:text-[var(--color-accent)]"
-      style="color: var(--color-text-muted);"
+      class="project-card-github shrink-0 text-xs"
       aria-label={`GitHub: ${project.title}`}
     >
       GitHub ↗
@@ -37,7 +34,7 @@ const glow = project.color ? `${project.color}22` : 'var(--color-accent-glow)';
   <div class="flex flex-wrap gap-2 mt-auto">
     {project.techStack.map((tech) => (
       <span
-        class="px-2.5 py-0.5 text-xs rounded-full border transition-colors"
+        class="px-2.5 py-0.5 text-xs rounded-full border"
         style="border-color: var(--color-border); color: var(--color-text-muted);"
       >
         {tech}
@@ -57,3 +54,23 @@ const glow = project.color ? `${project.color}22` : 'var(--color-accent-glow)';
     </a>
   )}
 </article>
+
+<style>
+  .project-card {
+    background: color-mix(in srgb, var(--color-surface) 70%, transparent);
+    border-color: var(--color-border);
+    box-shadow: 0 0 0 transparent;
+    transition: box-shadow 0.2s, border-color 0.2s;
+  }
+  .project-card:hover {
+    border-color: var(--card-color);
+    box-shadow: 0 8px 32px var(--card-glow);
+  }
+  .project-card-github {
+    color: var(--color-text-muted);
+    transition: color 0.15s;
+  }
+  .project-card-github:hover {
+    color: var(--color-accent);
+  }
+</style>

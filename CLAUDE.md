@@ -14,7 +14,7 @@ Repo: github.com/savyasachi16/folio
 
 ## Design system
 
-- **Fonts**: Syne (headings, `font-family: 'Syne', sans-serif`) + Inter (body)
+- **Fonts**: Syne (headings, `font-family: 'Syne', sans-serif`) + DM Sans (body)
 - **Palette**: pastel blue — NOT indigo/purple. Colors as CSS custom properties only.
 - **Dark mode** (default): bg `#0c0f14`, surface `#131820`, accent `#7eb8f7`, border `#1e2a3a`
 - **Light mode**: bg `#f0f5fc`, surface `#ffffff`, accent `#3b82c4`, border `#d0ddf0`

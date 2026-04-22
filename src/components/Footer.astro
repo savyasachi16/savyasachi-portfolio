@@ -28,8 +28,7 @@ const wallets = [
             href={link.href}
             target={link.href.startsWith('mailto') || link.href.startsWith('/') ? undefined : '_blank'}
             rel={link.href.startsWith('http') ? 'noopener noreferrer' : undefined}
-            class="transition-all hover:text-[var(--color-accent)]"
-            style="color: var(--color-text-muted);"
+            class="footer-link"
           >
             {link.label}
           </a>
@@ -37,20 +36,22 @@ const wallets = [
         </>
       ))}
 
-      <!-- Tip Jar -->
       <div>
         <button
           id="tip-jar-btn"
-          class="transition-all hover:text-[var(--color-accent)]"
-          style="color: var(--color-text-muted); background: none; border: none; cursor: pointer; font-size: inherit; padding: 0; font-family: inherit;"
+          class="footer-link"
+          aria-expanded="false"
+          aria-controls="tip-popover"
+          style="background: none; border: none; cursor: pointer; font-size: inherit; padding: 0; font-family: inherit;"
         >
           Tip Jar
         </button>
 
-        <!-- Popover -->
         <div
           id="tip-popover"
           class="hidden p-4 rounded-xl border z-50"
+          role="dialog"
+          aria-label="Tip options"
           style="position: fixed; background: var(--color-surface); border-color: var(--color-border); width: fit-content; box-shadow: 0 8px 32px rgba(0,0,0,0.4);"
         >
           <p class="text-xs mb-4 leading-relaxed" style="color: var(--color-text-muted);">
@@ -58,50 +59,33 @@ const wallets = [
             consider supporting me!
           </p>
 
-          <!-- All tip options in one row -->
           <div class="flex gap-2 items-center justify-center">
-            <!-- Ko-fi -->
             <button
-              class="tip-trigger py-1 px-2 rounded-md border transition-all flex items-center justify-center gap-2 flex-1"
-              style={`border-color: var(--color-border); color: var(--color-text-muted); background: none; cursor: pointer; font-family: inherit;`}
-              onmouseenter={`this.style.borderColor='${kofi.color}';this.style.color='${kofi.color}';this.style.background='${kofi.color}18';`}
-              onmouseleave="this.style.borderColor='var(--color-border)';this.style.color='var(--color-text-muted)';this.style.background='none';"
+              class="tip-trigger tip-btn-kofi py-1 px-2 rounded-md border flex items-center justify-center gap-2 flex-1"
               data-id={kofi.id}
             >
               <span style="font-size: 1.1rem;">☕</span>
               <span style="font-size: 0.75rem; line-height: 1; font-weight: 700;">{kofi.label}</span>
             </button>
 
-            <!-- BTC -->
             <button
-              class="tip-trigger py-1 px-2 rounded-md border transition-all flex items-center justify-center gap-2 flex-1"
-              style={`border-color: var(--color-border); color: var(--color-text-muted); background: none; cursor: pointer; font-family: inherit;`}
-              onmouseenter={`this.style.borderColor='#F7931A';this.style.color='#F7931A';this.style.background='#F7931A18';`}
-              onmouseleave="this.style.borderColor='var(--color-border)';this.style.color='var(--color-text-muted)';this.style.background='none';"
+              class="tip-trigger tip-btn-btc py-1 px-2 rounded-md border flex items-center justify-center gap-2 flex-1"
               data-id="btc"
             >
               <span style="font-size: 1.1rem; color: #F7931A;">₿</span>
               <span style="font-size: 0.75rem; line-height: 1; font-weight: 700;">BTC</span>
             </button>
 
-            <!-- ETH -->
             <button
-              class="tip-trigger py-1 px-2 rounded-md border transition-all flex items-center justify-center gap-2 flex-1"
-              style={`border-color: var(--color-border); color: var(--color-text-muted); background: none; cursor: pointer; font-family: inherit;`}
-              onmouseenter={`this.style.borderColor='#627EEA';this.style.color='#627EEA';this.style.background='#627EEA18';`}
-              onmouseleave="this.style.borderColor='var(--color-border)';this.style.color='var(--color-text-muted)';this.style.background='none';"
+              class="tip-trigger tip-btn-eth py-1 px-2 rounded-md border flex items-center justify-center gap-2 flex-1"
               data-id="eth"
             >
               <span style="font-size: 1.1rem; color: #627EEA;">Ξ</span>
               <span style="font-size: 0.75rem; line-height: 1; font-weight: 700;">ETH</span>
             </button>
 
-            <!-- LTC -->
             <button
-              class="tip-trigger py-1 px-2 rounded-md border transition-all flex items-center justify-center gap-2 flex-1"
-              style={`border-color: var(--color-border); color: var(--color-text-muted); background: none; cursor: pointer; font-family: inherit;`}
-              onmouseenter={`this.style.borderColor='#345D9D';this.style.color='#345D9D';this.style.background='#345D9D18';`}
-              onmouseleave="this.style.borderColor='var(--color-border)';this.style.color='var(--color-text-muted)';this.style.background='none';"
+              class="tip-trigger tip-btn-ltc py-1 px-2 rounded-md border flex items-center justify-center gap-2 flex-1"
               data-id="ltc"
             >
               <span style="font-size: 1.1rem; color: #345D9D;">Ł</span>
@@ -114,10 +98,12 @@ const wallets = [
   </div>
 </footer>
 
-<!-- Ko-fi Modal -->
 <div
   id={`modal-${kofi.id}`}
   class="tip-modal"
+  role="dialog"
+  aria-modal="true"
+  aria-label={`${kofi.label} tip`}
   style="display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; z-index: 50; align-items: center; justify-content: center; padding: 1rem; background: rgba(0,0,0,0.6); backdrop-filter: blur(4px);"
 >
   <div
@@ -125,7 +111,8 @@ const wallets = [
     style="background: var(--color-surface); border-color: var(--color-border); box-shadow: 0 24px 64px rgba(0,0,0,0.5); max-width: 28rem;"
   >
     <button
-      class="modal-close absolute top-4 right-4 transition-colors hover:text-[var(--color-text)]"
+      class="modal-close absolute top-4 right-4"
+      aria-label="Close dialog"
       style="color: var(--color-text-muted); background: none; border: none; cursor: pointer; font-size: 1.1rem; line-height: 1;"
     >
       ✕
@@ -149,7 +136,7 @@ const wallets = [
     <div class="w-full flex flex-col gap-2">
       <code class="w-full block text-xs text-center break-all" style="color: var(--color-text-muted);">{kofi.url}</code>
       <button
-        class="open-kofi w-full py-2 rounded-lg text-sm font-medium transition-opacity hover:opacity-80"
+        class="open-kofi w-full py-2 rounded-lg text-sm font-medium"
         style="background: var(--color-accent); color: var(--color-bg);"
       >
         Open Ko-fi →
@@ -158,11 +145,13 @@ const wallets = [
   </div>
 </div>
 
-<!-- Crypto Modals -->
 {wallets.map((w) => (
   <div
     id={`modal-${w.id}`}
     class="tip-modal"
+    role="dialog"
+    aria-modal="true"
+    aria-label={`${w.label} tip address`}
     style="display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; z-index: 50; align-items: center; justify-content: center; padding: 1rem; background: rgba(0,0,0,0.6); backdrop-filter: blur(4px);"
   >
     <div
@@ -170,7 +159,8 @@ const wallets = [
       style="background: var(--color-surface); border-color: var(--color-border); box-shadow: 0 24px 64px rgba(0,0,0,0.5); max-width: 28rem;"
     >
       <button
-        class="modal-close absolute top-4 right-4 transition-colors hover:text-[var(--color-text)]"
+        class="modal-close absolute top-4 right-4"
+        aria-label="Close dialog"
         style="color: var(--color-text-muted); background: none; border: none; cursor: pointer; font-size: 1.1rem; line-height: 1;"
       >
         ✕
@@ -194,7 +184,7 @@ const wallets = [
       <div class="w-full flex flex-col gap-2">
         <code class="w-full block text-xs text-center break-all" style="color: var(--color-text-muted);">{w.address}</code>
         <button
-          class="copy-addr w-full py-2 rounded-lg text-sm font-medium transition-opacity hover:opacity-80"
+          class="copy-addr w-full py-2 rounded-lg text-sm font-medium"
           style="background: var(--color-accent); color: var(--color-bg);"
           data-address={w.address}
         >
@@ -205,15 +195,45 @@ const wallets = [
   </div>
 ))}
 
+<style>
+  .footer-link {
+    color: var(--color-text-muted);
+    transition: color 0.15s;
+  }
+  .footer-link:hover { color: var(--color-accent); }
+
+  .tip-trigger {
+    border-color: var(--color-border);
+    color: var(--color-text-muted);
+    background: none;
+    cursor: pointer;
+    font-family: inherit;
+    transition: border-color 0.15s, color 0.15s, background 0.15s;
+  }
+  .tip-btn-kofi:hover { border-color: #FF5E5B; color: #FF5E5B; background: #FF5E5B18; }
+  .tip-btn-btc:hover  { border-color: #F7931A; color: #F7931A; background: #F7931A18; }
+  .tip-btn-eth:hover  { border-color: #627EEA; color: #627EEA; background: #627EEA18; }
+  .tip-btn-ltc:hover  { border-color: #345D9D; color: #345D9D; background: #345D9D18; }
+
+  .open-kofi, .copy-addr {
+    transition: opacity 0.15s;
+  }
+  .open-kofi:hover, .copy-addr:hover { opacity: 0.85; }
+  .modal-close {
+    transition: color 0.15s;
+  }
+  .modal-close:hover { color: var(--color-text); }
+</style>
+
 <script>
   const tipBtn = document.getElementById('tip-jar-btn');
   const popover = document.getElementById('tip-popover');
 
-  tipBtn?.addEventListener('click', (e) => {
-    e.stopPropagation();
-    const isHidden = popover?.classList.contains('hidden');
-    if (isHidden && popover && tipBtn) {
-      popover.classList.remove('hidden');
+  function setPopoverOpen(open: boolean) {
+    if (!popover || !tipBtn) return;
+    popover.classList.toggle('hidden', !open);
+    tipBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
+    if (open) {
       const rect = (tipBtn as HTMLElement).getBoundingClientRect();
       const margin = 8;
       const pw = popover.offsetWidth;
@@ -221,30 +241,52 @@ const wallets = [
       left = Math.max(margin, Math.min(left, window.innerWidth - pw - margin));
       popover.style.bottom = (window.innerHeight - rect.top + 8) + 'px';
       popover.style.left = left + 'px';
-    } else {
-      popover?.classList.add('hidden');
     }
+  }
+
+  tipBtn?.addEventListener('click', (e) => {
+    e.stopPropagation();
+    const isHidden = popover?.classList.contains('hidden');
+    setPopoverOpen(Boolean(isHidden));
   });
 
   document.addEventListener('click', (e) => {
     if (e.target !== tipBtn && !popover?.contains(e.target as Node)) {
-      popover?.classList.add('hidden');
+      setPopoverOpen(false);
     }
   });
 
-  window.addEventListener('scroll', () => popover?.classList.add('hidden'), { passive: true });
+  window.addEventListener('scroll', () => setPopoverOpen(false), { passive: true });
+
+  const focusableSelector = 'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])';
+  let lastFocused: HTMLElement | null = null;
 
   function showModal(id: string) {
     const modal = document.getElementById(`modal-${id}`) as HTMLElement | null;
-    if (modal) modal.style.display = 'flex';
+    if (!modal) return;
+    lastFocused = document.activeElement as HTMLElement;
+    modal.style.display = 'flex';
+    const first = modal.querySelector<HTMLElement>(focusableSelector);
+    first?.focus();
   }
   function hideModal(modal: HTMLElement) {
     modal.style.display = 'none';
+    lastFocused?.focus();
+    lastFocused = null;
+  }
+  function hideAllModals() {
+    document.querySelectorAll<HTMLElement>('.tip-modal').forEach((m) => {
+      if (m.style.display !== 'none') hideModal(m);
+    });
+  }
+  function openModal(): HTMLElement | null {
+    return Array.from(document.querySelectorAll<HTMLElement>('.tip-modal'))
+      .find((m) => m.style.display !== 'none') ?? null;
   }
 
   document.querySelectorAll('.tip-trigger').forEach((btn) => {
     btn.addEventListener('click', () => {
-      popover?.classList.add('hidden');
+      setPopoverOpen(false);
       const id = (btn as HTMLElement).dataset.id;
       if (id) showModal(id);
     });
@@ -257,6 +299,35 @@ const wallets = [
     modal.querySelector('.modal-close')?.addEventListener('click', () => {
       hideModal(modal);
     });
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      if (!popover?.classList.contains('hidden')) {
+        setPopoverOpen(false);
+        (tipBtn as HTMLElement | null)?.focus();
+        return;
+      }
+      const open = openModal();
+      if (open) hideModal(open);
+      return;
+    }
+
+    if (e.key === 'Tab') {
+      const open = openModal();
+      if (!open) return;
+      const focusable = Array.from(open.querySelectorAll<HTMLElement>(focusableSelector));
+      if (focusable.length === 0) return;
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+      if (e.shiftKey && document.activeElement === first) {
+        e.preventDefault();
+        last.focus();
+      } else if (!e.shiftKey && document.activeElement === last) {
+        e.preventDefault();
+        first.focus();
+      }
+    }
   });
 
   document.querySelectorAll('.copy-addr').forEach((btn) => {
