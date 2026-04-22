@@ -1,11 +1,12 @@
 ---
 import { experiences } from '../../data/experience';
 import ExperienceCard from '../ui/ExperienceCard.astro';
+import SectionHeading from '../ui/SectionHeading.astro';
 ---
 
 <section id="experience" class="py-16">
   <div class="max-w-6xl mx-auto px-6">
-    <h2 class="text-3xl font-semibold text-[var(--color-text)] mb-10">Experience</h2>
+    <SectionHeading num="01" title="Experience" />
     <div class="flex flex-col gap-8">
       {experiences.map((exp) => (
         <ExperienceCard experience={exp} />

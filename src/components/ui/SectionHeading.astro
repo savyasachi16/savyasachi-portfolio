@@ -1,0 +1,26 @@
+---
+interface Props {
+  num: string;
+  title: string;
+  subtitle?: string;
+}
+
+const { num, title, subtitle } = Astro.props;
+---
+
+<div class={subtitle ? 'mb-8' : 'mb-10'}>
+  <div class="flex items-baseline gap-3 flex-wrap">
+    <span class="section-num">{num}</span>
+    <h2 class="text-3xl font-semibold" style="color: var(--color-text);">{title}</h2>
+  </div>
+  {subtitle && <p class="text-sm mt-2" style="color: var(--color-text-muted);">{subtitle}</p>}
+</div>
+
+<style>
+  .section-num {
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: 0.875rem;
+    color: var(--color-accent);
+    letter-spacing: 0.05em;
+  }
+</style>

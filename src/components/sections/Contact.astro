@@ -1,14 +1,25 @@
 ---
 import SocialLink from '../ui/SocialLink.astro';
+import SectionHeading from '../ui/SectionHeading.astro';
 import { config } from '../../data/config';
 ---
 
 <section id="contact" class="py-16 border-t border-[var(--color-border)]">
   <div class="max-w-6xl mx-auto px-6">
-    <h2 class="text-3xl font-semibold text-[var(--color-text)] mb-4">Get in touch</h2>
-    <p class="text-[var(--color-text-muted)] mb-12 max-w-lg">
-      Always down to chat — new opportunities, interesting problems, or just to talk tech, F1, or motorcycles.
-    </p>
+    <SectionHeading
+      num="06"
+      title="Get in touch"
+      subtitle="Always down to chat — new opportunities, interesting problems, or just to talk tech, F1, or motorcycles."
+    />
+
+    {config.social.email && (
+      <p class="mb-10 text-sm" style="color: var(--color-text-muted);">
+        Or reach me directly at
+        <a href={`mailto:${config.social.email}`} class="contact-email">
+          {config.social.email}
+        </a>
+      </p>
+    )}
 
     <form
       id="contact-form"
@@ -60,6 +71,12 @@ import { config } from '../../data/config';
 </section>
 
 <style>
+  .contact-email {
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    color: var(--color-accent);
+    transition: opacity 0.15s;
+  }
+  .contact-email:hover { opacity: 0.8; }
   .contact-field {
     border-color: var(--color-border);
     background: var(--color-surface);

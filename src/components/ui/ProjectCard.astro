@@ -8,6 +8,17 @@ interface Props {
 const { project } = Astro.props;
 const color = project.color ?? 'var(--color-accent)';
 const glow = project.color ? `${project.color}22` : 'var(--color-accent-glow)';
+
+const ICON_SLUG: Record<string, string> = {
+  'Astro': 'astro',
+  'Tailwind CSS': 'tailwindcss',
+  'TypeScript': 'typescript',
+  'Claude Agent SDK': 'anthropic',
+  'MCP': 'anthropic',
+  'Shell': 'gnubash',
+  'Bash': 'gnubash',
+  'Python': 'python',
+};
 ---
 
 <article
@@ -32,14 +43,27 @@ const glow = project.color ? `${project.color}22` : 'var(--color-accent-glow)';
   <p class="text-sm leading-relaxed" style="color: var(--color-text-muted);">{project.description}</p>
 
   <div class="flex flex-wrap gap-2 mt-auto">
-    {project.techStack.map((tech) => (
-      <span
-        class="px-2.5 py-0.5 text-xs rounded-full border"
-        style="border-color: var(--color-border); color: var(--color-text-muted);"
-      >
-        {tech}
-      </span>
-    ))}
+    {project.techStack.map((tech) => {
+      const slug = ICON_SLUG[tech];
+      return (
+        <span
+          class="tech-pill inline-flex items-center gap-1.5 px-2.5 py-0.5 text-xs rounded-full border"
+          style="border-color: var(--color-border); color: var(--color-text-muted);"
+        >
+          {slug && (
+            <img
+              src={`https://cdn.simpleicons.org/${slug}/8a9ab5`}
+              alt=""
+              width="11"
+              height="11"
+              loading="lazy"
+              aria-hidden="true"
+            />
+          )}
+          {tech}
+        </span>
+      );
+    })}
   </div>
 
   {project.liveUrl && (
@@ -60,11 +84,12 @@ const glow = project.color ? `${project.color}22` : 'var(--color-accent-glow)';
     background: color-mix(in srgb, var(--color-surface) 70%, transparent);
     border-color: var(--color-border);
     box-shadow: 0 0 0 transparent;
-    transition: box-shadow 0.2s, border-color 0.2s;
+    transition: box-shadow 0.2s, border-color 0.2s, transform 0.2s;
   }
   .project-card:hover {
     border-color: var(--card-color);
     box-shadow: 0 8px 32px var(--card-glow);
+    transform: translateY(-3px);
   }
   .project-card-github {
     color: var(--color-text-muted);
