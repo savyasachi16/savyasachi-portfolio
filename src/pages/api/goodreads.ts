@@ -26,7 +26,7 @@ function parseRSS(xml: string): Book[] {
       author: tag('author_name'),
       cover,
       rating: parseInt(tag('user_rating')) || 0,
-      link: item.match(/<link>([\s\S]*?)<\/link>/)?.[1]?.trim() ?? '',
+      link: tag('link'),
     };
   });
 }
