@@ -12,15 +12,23 @@ const COMPANY_SLUG: Record<string, string> = {
   'Qualcomm': 'qualcomm',
   'Accenture': 'accenture',
 };
+const COMPANY_LOGO: Record<string, string> = {
+  'Stockpile Investments': '/logos/stockpile.png',
+  'NortonLifeLock': '/logos/norton.png',
+};
 const slug = COMPANY_SLUG[experience.company];
+const localLogo = COMPANY_LOGO[experience.company];
+const logoSrc = slug
+  ? `https://cdn.simpleicons.org/${slug}/8a9ab5`
+  : localLogo;
 ---
 
 <div class="exp-root relative pl-6 border-l-2">
   <div class="mb-4">
     <div class="inline-flex items-center gap-2.5">
-      {slug && (
+      {logoSrc && (
         <img
-          src={`https://cdn.simpleicons.org/${slug}/8a9ab5`}
+          src={logoSrc}
           alt=""
           width="18"
           height="18"
