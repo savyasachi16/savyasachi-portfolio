@@ -6,25 +6,44 @@ interface Props {
 }
 
 const { experience } = Astro.props;
+
+const COMPANY_SLUG: Record<string, string> = {
+  'PayPal': 'paypal',
+  'Qualcomm': 'qualcomm',
+  'Accenture': 'accenture',
+};
+const slug = COMPANY_SLUG[experience.company];
 ---
 
 <div class="exp-root relative pl-6 border-l-2">
   <div class="mb-4">
-    {experience.companyUrl ? (
-      <a
-        href={experience.companyUrl}
-        target="_blank"
-        rel="noopener noreferrer"
-        class="exp-company-link text-lg font-semibold"
-        style="font-family: 'Syne', sans-serif;"
-      >
-        {experience.company}
-      </a>
-    ) : (
-      <span class="text-lg font-semibold" style="font-family: 'Syne', sans-serif; color: var(--color-text);">
-        {experience.company}
-      </span>
-    )}
+    <div class="inline-flex items-center gap-2.5">
+      {slug && (
+        <img
+          src={`https://cdn.simpleicons.org/${slug}/8a9ab5`}
+          alt=""
+          width="18"
+          height="18"
+          loading="lazy"
+          aria-hidden="true"
+        />
+      )}
+      {experience.companyUrl ? (
+        <a
+          href={experience.companyUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="exp-company-link text-lg font-semibold"
+          style="font-family: 'Syne', sans-serif;"
+        >
+          {experience.company}
+        </a>
+      ) : (
+        <span class="text-lg font-semibold" style="font-family: 'Syne', sans-serif; color: var(--color-text);">
+          {experience.company}
+        </span>
+      )}
+    </div>
     <span class="block text-sm" style="color: var(--color-text-muted);">{experience.location}</span>
   </div>
 
