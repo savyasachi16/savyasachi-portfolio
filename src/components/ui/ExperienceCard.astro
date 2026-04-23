@@ -34,6 +34,7 @@ const logoSrc = slug
           height="18"
           loading="lazy"
           aria-hidden="true"
+          class={localLogo ? 'exp-logo-muted' : ''}
         />
       )}
       {experience.companyUrl ? (
@@ -136,5 +137,8 @@ const logoSrc = slug
   .exp-bullet-dot {
     color: var(--color-accent);
     font-weight: 700;
+  }
+  .exp-logo-muted {
+    filter: grayscale(1) brightness(1.2) opacity(0.7);
   }
 </style>
