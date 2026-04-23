@@ -32,9 +32,10 @@ function parseRSS(xml: string): Book[] {
 }
 
 async function fetchShelf(shelf: string, limit: number): Promise<Book[]> {
+  const sort = shelf === 'currently-reading' ? 'date_started' : 'date_read';
   try {
     const res = await fetch(
-      `https://www.goodreads.com/review/list_rss/${config.goodreadsUserId}?shelf=${shelf}&sort=date_read&per_page=${limit}`,
+      `https://www.goodreads.com/review/list_rss/${config.goodreadsUserId}?shelf=${shelf}&sort=${sort}&per_page=${limit}`,
     );
     const xml = await res.text();
     return parseRSS(xml).slice(0, limit);
