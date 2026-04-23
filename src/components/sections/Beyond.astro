@@ -33,17 +33,22 @@ import SectionHeading from '../ui/SectionHeading.astro';
         <img src="https://cdn.simpleicons.org/spotify/1db954" alt="" width="12" height="12" loading="lazy" aria-hidden="true" />
         Spotify
       </h3>
-      <div class="flex flex-col sm:flex-row gap-4 items-start">
-        <div id="spotify-card" class="flex items-center gap-4 p-4 rounded-xl border backdrop-blur-sm shrink-0" style="border-color: var(--color-border); background: color-mix(in srgb, var(--color-surface) 70%, transparent); width: 100%; max-width: 20rem;">
-          <div class="w-14 h-14 rounded-md shrink-0 animate-pulse" style="background: var(--color-border);"></div>
-          <div class="flex flex-col gap-2 flex-1">
-            <div class="h-3 rounded animate-pulse w-3/4" style="background: var(--color-border);"></div>
-            <div class="h-2.5 rounded animate-pulse w-1/2" style="background: var(--color-border);"></div>
+      <div class="grid gap-4 sm:grid-cols-[20rem_1fr] items-start">
+        <div class="flex flex-col gap-3">
+          <span id="spotify-label" class="text-xs font-semibold uppercase tracking-widest" style="color: var(--color-text-muted);">Last Played</span>
+          <div id="spotify-card" class="spotify-surface flex flex-col p-2">
+            <div class="flex items-center gap-3 px-3 py-2 rounded-lg">
+              <div class="w-8 h-8 rounded shrink-0 animate-pulse" style="background: var(--color-border);"></div>
+              <div class="flex flex-col gap-1.5 flex-1">
+                <div class="h-2.5 rounded animate-pulse w-2/3" style="background: var(--color-border);"></div>
+                <div class="h-2 rounded animate-pulse w-1/3" style="background: var(--color-border);"></div>
+              </div>
+            </div>
           </div>
         </div>
-        <div class="flex flex-col flex-1">
-          <span class="text-xs font-semibold uppercase tracking-widest mb-3" style="color: var(--color-text-muted);">Top Tracks — All Time</span>
-          <div id="top-tracks" class="flex flex-col justify-center">
+        <div class="flex flex-col gap-3">
+          <span class="text-xs font-semibold uppercase tracking-widest" style="color: var(--color-text-muted);">Top Tracks — All Time</span>
+          <div id="top-tracks" class="spotify-surface flex flex-col p-2">
             {Array.from({ length: 5 }).map(() => (
               <div class="flex items-center gap-3 px-3 py-2 rounded-lg">
                 <div class="w-8 h-8 rounded shrink-0 animate-pulse" style="background: var(--color-border);"></div>
@@ -62,7 +67,7 @@ import SectionHeading from '../ui/SectionHeading.astro';
       <h3 class="text-xs font-semibold uppercase tracking-widest mb-6" style="color: var(--color-text-muted);">
         Currently Reading
       </h3>
-      <div id="currently-reading" class="flex flex-wrap gap-4"></div>
+      <div id="currently-reading" class="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 gap-3"></div>
     </div>
 
     <div id="recently-read-block" class="hidden">
@@ -75,21 +80,16 @@ import SectionHeading from '../ui/SectionHeading.astro';
 </section>
 
 <style is:global>
-  .spotify-card-link {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    padding: 1rem;
+  .spotify-surface {
     border-radius: 0.75rem;
     border: 1px solid var(--color-border);
     backdrop-filter: blur(4px);
     background: color-mix(in srgb, var(--color-surface) 70%, transparent);
-    text-decoration: none;
-    transition: border-color 0.2s, box-shadow 0.2s;
-    max-width: 20rem;
     box-sizing: border-box;
+    transition: border-color 0.2s, box-shadow 0.2s;
   }
-  .spotify-card-link:hover {
+  a.spotify-surface { text-decoration: none; }
+  a.spotify-surface:hover {
     border-color: var(--color-accent);
     box-shadow: 0 4px 24px var(--color-accent-glow);
   }
@@ -142,6 +142,20 @@ import SectionHeading from '../ui/SectionHeading.astro';
     line-height: 1;
     backdrop-filter: blur(4px);
   }
+  .book-reading-badge {
+    position: absolute;
+    top: 0.35rem;
+    left: 0.35rem;
+    padding: 0.15rem 0.5rem;
+    border-radius: 999px;
+    background: var(--color-accent);
+    color: var(--color-bg);
+    font-size: 0.6rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    line-height: 1;
+  }
 
   .spotify-dot {
     display: inline-block;
@@ -170,6 +184,7 @@ import SectionHeading from '../ui/SectionHeading.astro';
 
   async function loadSpotify() {
     const card = document.getElementById('spotify-card');
+    const label = document.getElementById('spotify-label');
     if (!card) return;
 
     try {
@@ -177,31 +192,30 @@ import SectionHeading from '../ui/SectionHeading.astro';
       const data = await res.json();
 
       if (!data.title) {
-        card.innerHTML = `<span style="font-size:0.8rem; color: var(--color-text-muted);">Nothing playing right now.</span>`;
+        card.innerHTML = `<div class="px-3 py-2" style="font-size:0.8rem;color:var(--color-text-muted);">Nothing playing right now.</div>`;
         return;
       }
 
       const playing = data.isPlaying;
-      const dot = playing ? `<span class="spotify-dot"></span>` : '';
+      if (label) label.textContent = playing ? 'Now Playing' : 'Last Played';
+      const indicator = playing
+        ? `<span style="display:inline-flex;justify-content:flex-end;width:1.25rem;flex-shrink:0;"><span class="spotify-dot"></span></span>`
+        : `<span style="font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:0.7rem;width:1.25rem;text-align:right;color:var(--color-accent);flex-shrink:0;">♪</span>`;
 
-      card.outerHTML = `
-        <a href="${esc(data.songUrl)}" target="_blank" rel="noopener noreferrer"
-           id="spotify-card" class="spotify-card-link"
-        >
-          <img src="${esc(data.albumArt)}" alt="${esc(data.album)}" width="56" height="56"
-               style="border-radius:6px;object-fit:cover;flex-shrink:0;box-shadow:0 2px 8px rgba(0,0,0,0.4);" />
-          <div style="display:flex;flex-direction:column;gap:3px;min-width:0;">
-            <span style="display:flex;align-items:center;gap:6px;font-size:0.875rem;font-weight:500;color:var(--color-text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">
-              ${dot} ${esc(data.title)}
-            </span>
+      card.innerHTML = `
+        <a href="${esc(data.songUrl)}" target="_blank" rel="noopener noreferrer" class="top-track-row">
+          ${indicator}
+          <img src="${esc(data.albumArt)}" alt="${esc(data.album)}" width="40" height="40"
+               style="border-radius:4px;object-fit:cover;flex-shrink:0;box-shadow:0 1px 4px rgba(0,0,0,0.4);" />
+          <div style="display:flex;flex-direction:column;gap:2px;min-width:0;">
+            <span style="font-size:0.875rem;font-weight:500;color:var(--color-text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${esc(data.title)}</span>
             <span style="font-size:0.75rem;color:var(--color-text-muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${esc(data.artist)}</span>
-            <span style="font-size:0.7rem;color:var(--color-text-muted);opacity:0.7;">${playing ? 'Listening now' : 'Last played'}</span>
           </div>
         </a>
       `;
     } catch {
       const card2 = document.getElementById('spotify-card');
-      if (card2) card2.innerHTML = `<span style="font-size:0.8rem;color:var(--color-text-muted);">Couldn't load Spotify.</span>`;
+      if (card2) card2.innerHTML = `<div class="px-3 py-2" style="font-size:0.8rem;color:var(--color-text-muted);">Couldn't load Spotify.</div>`;
     }
   }
 
@@ -220,7 +234,7 @@ import SectionHeading from '../ui/SectionHeading.astro';
 
       container.innerHTML = tracks.map((t: any, i: number) => `
         <a href="${esc(t.songUrl)}" target="_blank" rel="noopener noreferrer" class="top-track-row">
-          <span style="font-size:0.7rem;width:1.25rem;text-align:right;color:var(--color-text-muted);flex-shrink:0;">${i + 1}</span>
+          <span style="font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:0.7rem;width:1.25rem;text-align:right;color:var(--color-accent);flex-shrink:0;">${String(i + 1).padStart(2, '0')}</span>
           <img src="${esc(t.albumArt)}" alt="${esc(t.album)}" width="40" height="40"
                style="border-radius:4px;object-fit:cover;flex-shrink:0;box-shadow:0 1px 4px rgba(0,0,0,0.4);" />
           <div style="display:flex;flex-direction:column;gap:2px;min-width:0;">
@@ -252,13 +266,11 @@ import SectionHeading from '../ui/SectionHeading.astro';
 
       if (currentlyReading?.length) {
         currentList.innerHTML = currentlyReading.map((book: any) => `
-          <a href="${esc(book.link)}" target="_blank" rel="noopener noreferrer" class="book-card">
-            ${book.cover ? `<img src="${esc(book.cover)}" alt="${esc(book.title)}" width="64" height="98" class="rounded object-cover shrink-0" style="box-shadow:0 2px 8px rgba(0,0,0,0.4);" />` : ''}
-            <div class="flex flex-col justify-center gap-1 min-w-0">
-              <span class="text-sm font-medium leading-snug" style="color: var(--color-text);">${esc(book.title)}</span>
-              <span class="text-xs" style="color: var(--color-text-muted);">${esc(book.author)}</span>
-              <span class="text-xs mt-1" style="color: var(--color-accent);">reading now</span>
-            </div>
+          <a href="${esc(book.link)}" target="_blank" rel="noopener noreferrer" class="book-tile" title="${esc(book.title)} — ${esc(book.author)}">
+            ${book.cover
+              ? `<img src="${esc(book.cover)}" alt="${esc(book.title)}" width="98" height="148" class="rounded-md w-full object-cover" style="box-shadow:0 2px 8px rgba(0,0,0,0.4); aspect-ratio: 2/3;" />`
+              : `<div class="rounded-md w-full flex items-center justify-center text-xs text-center p-2" style="aspect-ratio: 2/3; background: var(--color-surface); color: var(--color-text-muted); border: 1px solid var(--color-border);">${esc(book.title)}</div>`}
+            <span class="book-reading-badge">reading now</span>
           </a>
         `).join('');
         currentBlock.classList.remove('hidden');
