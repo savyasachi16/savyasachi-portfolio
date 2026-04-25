@@ -8,7 +8,7 @@ const { name, bio, social, titles } = config;
   <div class="orb orb-b pointer-events-none absolute -bottom-32 -right-16 w-[400px] h-[400px] rounded-full"></div>
 
   <div class="relative z-10 max-w-6xl mx-auto px-6 py-16 w-full">
-    <div class="flex items-start gap-6 md:gap-8 mb-8">
+    <div class="flex flex-col sm:flex-row sm:items-start gap-4 sm:gap-6 md:gap-8 mb-8">
       <img
         src="/avatar.jpg"
         alt={`${name.first} ${name.last}`}
@@ -16,12 +16,12 @@ const { name, bio, social, titles } = config;
         height="96"
         class="hero-avatar shrink-0 rounded-full object-cover"
       />
-      <div class="min-w-0">
+      <div class="min-w-0 w-full">
         <p class="text-sm font-medium mb-2 tracking-widest uppercase" style="color: var(--color-accent);">
           Hello, I'm
         </p>
         <h1
-          class="text-5xl md:text-7xl font-bold tracking-tight leading-[1.05]"
+          class="text-[clamp(2.5rem,10vw,4.5rem)] md:text-7xl font-bold tracking-tight leading-[1.05]"
           style="font-family: 'Syne', sans-serif; color: var(--color-text);"
         >
           <span id="hero-name-text" data-first={name.first} data-last={name.last}>{name.first}<br />{name.last}</span><span id="hero-cursor" class="hero-cursor" aria-hidden="true">|</span>
@@ -87,7 +87,7 @@ const { name, bio, social, titles } = config;
     box-shadow: 0 8px 40px var(--color-accent-glow);
   }
   @media (max-width: 640px) {
-    .hero-avatar { width: 72px; height: 72px; }
+    .hero-avatar { width: 80px; height: 80px; }
   }
 
   .role-pill {
