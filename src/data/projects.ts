@@ -27,10 +27,10 @@ export const projects: Project[] = [
     color: '#f7e57e',
   },
   {
-    title: 'claude-dotfiles',
-    description: 'Cross-machine Claude Code settings for Mac and Linux.',
+    title: 'ai-dotfiles',
+    description: 'Cross-machine AI agent configuration for Mac and Linux.',
     techStack: ['Shell'],
-    githubUrl: 'https://github.com/savyasachi16/claude-dotfiles',
+    githubUrl: 'https://github.com/savyasachi16/ai-dotfiles',
     featured: true,
     color: '#f7a07e',
   },
