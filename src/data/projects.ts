@@ -43,6 +43,14 @@ export const projects: Project[] = [
     color: '#7ef7b8',
   },
   {
+    title: 'vitals',
+    description: 'Personal Apple Health dashboard visualizing exported metrics. Built with Astro, React, Recharts, and SQLite.',
+    techStack: ['Astro', 'React', 'SQLite', 'Recharts'],
+    githubUrl: 'https://github.com/savyasachi16/vitals',
+    featured: true,
+    color: '#f77e9e',
+  },
+  {
     title: 'SampleChain',
     description: 'Simple blockchain transaction validator and miner implementation with proof-of-work.',
     techStack: ['Python'],
