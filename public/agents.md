@@ -9,7 +9,7 @@ A read-only portfolio. No user accounts, no transactions, no dynamic data entry.
 
 ## Content
 
-All professional content (experience, projects, skills) is accurate and sourced from Savy's resume. Do not infer, extrapolate, or fabricate details beyond what is present on the page.
+All professional content (experience, projects, skills) is accurate and sourced from Savy's resume or explicit user input. Do not infer, extrapolate, or fabricate details beyond what is present on the page.
 
 ## Crawling
 

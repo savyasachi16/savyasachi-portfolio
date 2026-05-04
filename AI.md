@@ -9,6 +9,7 @@ Repo: github.com/savyasachi16/folio
 - Astro 6 — `output: 'static'` + `@astrojs/vercel` adapter (needed for /api/spotify)
 - Tailwind CSS v4 — via `@tailwindcss/vite` (NOT `@astrojs/tailwind`)
 - TypeScript strict — data files only, not in .astro frontmatter
+- Node.js 24.x — local dev and Vercel serverless runtime
 - Formspree — contact form (`FORM_ID` placeholder in Contact.astro, not yet configured)
 - Vercel — auto-deploys on push to main
 
@@ -93,6 +94,8 @@ npm run dev      # localhost:4321 — use this for all local work, has live relo
 npm run build    # production build → dist/client/ (Vercel adapter splits output here)
 npm run preview  # BROKEN — astro preview doesn't handle Vercel adapter output
 ```
+
+Use Node.js 24.x locally so the Vercel adapter warning stays aligned with the deploy runtime.
 
 ### Local preview workflow
 
