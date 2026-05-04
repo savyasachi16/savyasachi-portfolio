@@ -22,6 +22,12 @@ const ICON_SLUG: Record<string, string> = {
   'SQLite': 'sqlite',
   'Recharts': 'chartdotjs',
 };
+
+const MONOGRAM_ICON: Record<string, string> = {
+  'Plaid': 'P',
+  'Goose': 'G',
+  'Mem0': 'M',
+};
 ---
 
 <article
@@ -48,6 +54,7 @@ const ICON_SLUG: Record<string, string> = {
   <div class="flex flex-wrap gap-2 mt-auto">
     {project.techStack.map((tech) => {
       const slug = ICON_SLUG[tech];
+      const monogram = MONOGRAM_ICON[tech];
       return (
         <span
           class="tech-pill inline-flex items-center gap-1.5 px-2.5 py-0.5 text-xs rounded-full border"
@@ -62,6 +69,14 @@ const ICON_SLUG: Record<string, string> = {
               loading="lazy"
               aria-hidden="true"
             />
+          )}
+          {!slug && monogram && (
+            <span
+              class="tech-monogram inline-flex h-[11px] w-[11px] items-center justify-center rounded-full text-[8px] font-semibold leading-none"
+              aria-hidden="true"
+            >
+              {monogram}
+            </span>
           )}
           {tech}
         </span>
@@ -100,5 +115,9 @@ const ICON_SLUG: Record<string, string> = {
   }
   .project-card-github:hover {
     color: var(--color-accent);
+  }
+  .tech-monogram {
+    background: color-mix(in srgb, var(--card-color) 18%, transparent);
+    color: var(--card-color);
   }
 </style>

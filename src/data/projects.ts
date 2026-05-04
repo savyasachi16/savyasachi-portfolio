@@ -37,7 +37,7 @@ export const projects: Project[] = [
   {
     title: 'f5e',
     description: 'Personal finance analysis & advice.',
-    techStack: ['Python', 'SQLite'],
+    techStack: ['Python', 'SQLite', 'Plaid'],
     githubUrl: 'https://github.com/savyasachi16/f5e',
     featured: true,
     color: '#f7a57e',
@@ -53,7 +53,7 @@ export const projects: Project[] = [
   {
     title: 'kriyaos',
     description: 'Agentic personal OS.',
-    techStack: ['Python', 'Goose', 'Mem0'],
+    techStack: ['Goose', 'Mem0', 'Python'],
     githubUrl: 'https://github.com/savyasachi16/kriyaos',
     featured: true,
     color: '#7ecff7',
