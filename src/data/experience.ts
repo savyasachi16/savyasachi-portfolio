@@ -19,7 +19,7 @@ export const experiences: Experience[] = [
     companyUrl: 'https://www.paypal.com',
     roles: [
       {
-        title: 'Technical Lead — Braintree Forward API',
+        title: 'Technical Lead - Braintree Forward API',
         startDate: 'Nov 2024',
         endDate: 'Present',
         accomplishments: [
@@ -29,7 +29,7 @@ export const experiences: Experience[] = [
         ],
       },
       {
-        title: 'Senior Software Engineer — Braintree Forward API',
+        title: 'Senior Software Engineer - Braintree Forward API',
         startDate: 'Jul 2022',
         endDate: 'Nov 2024',
         accomplishments: [

@@ -9,7 +9,7 @@ One-time setup to get the now-playing card working on the live site.
 
 ---
 
-## Step 1 — Create a Spotify app
+## Step 1 - Create a Spotify app
 
 1. Go to https://developer.spotify.com/dashboard
 2. Click **Create app**
@@ -18,7 +18,7 @@ One-time setup to get the now-playing card working on the live site.
 
 ---
 
-## Step 2 — Get a refresh token
+## Step 2 - Get a refresh token
 
 Open this URL in your browser (replace `YOUR_CLIENT_ID`):
 
@@ -39,7 +39,7 @@ Save the `refresh_token` from the response.
 
 ---
 
-## Step 3 — Add env vars to Vercel
+## Step 3 - Add env vars to Vercel
 
 1. Go to **vercel.com** → your project → **Settings → Environment Variables**
 2. Add all three vars, setting scope to **Production + Preview + Development**:
@@ -66,4 +66,4 @@ SPOTIFY_CLIENT_SECRET=...
 SPOTIFY_REFRESH_TOKEN=...
 ```
 
-Then `npm run dev` — the `/api/spotify` endpoint will work locally too.
+Then `npm run dev` - the `/api/spotify` endpoint will work locally too.

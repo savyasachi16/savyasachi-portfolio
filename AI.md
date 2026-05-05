@@ -1,4 +1,4 @@
-# savyasachi.dev — Portfolio Website
+# savyasachi.dev - Portfolio Website
 
 Owner: Savyasachi Jagadeeshan (jsavyasachi@gmail.com)
 Live: https://savyasachi.dev
@@ -6,47 +6,47 @@ Repo: github.com/savyasachi16/folio
 
 ## Stack
 
-- Astro 6 — `output: 'static'` + `@astrojs/vercel` adapter (needed for /api/spotify)
-- Tailwind CSS v4 — via `@tailwindcss/vite` (NOT `@astrojs/tailwind`)
-- TypeScript strict — data files only, not in .astro frontmatter
-- Node.js 24.x — local dev and Vercel serverless runtime
-- Formspree — contact form (`FORM_ID` placeholder in Contact.astro, not yet configured)
-- Vercel — auto-deploys on push to main
+- Astro 6 - `output: 'static'` + `@astrojs/vercel` adapter (needed for /api/spotify)
+- Tailwind CSS v4 - via `@tailwindcss/vite` (NOT `@astrojs/tailwind`)
+- TypeScript strict - data files only, not in .astro frontmatter
+- Node.js 24.x - local dev and Vercel serverless runtime
+- Formspree - contact form (`FORM_ID` placeholder in Contact.astro, not yet configured)
+- Vercel - auto-deploys on push to main
 
 ## Design system
 
 - **Fonts**: Syne (headings, `font-family: 'Syne', sans-serif`) + DM Sans (body)
-- **Palette**: pastel blue — NOT indigo/purple. Colors as CSS custom properties only.
+- **Palette**: pastel blue - NOT indigo/purple. Colors as CSS custom properties only.
 - **Dark mode** (default): bg `#0c0f14`, surface `#131820`, accent `#7eb8f7`, border `#1e2a3a`
 - **Light mode**: bg `#f0f5fc`, surface `#ffffff`, accent `#3b82c4`, border `#d0ddf0`
 - **Theme toggle**: defaults to `prefers-color-scheme`, persists to localStorage
 - **Max width**: `max-w-6xl` on all sections
-- **No `@apply`** — utility classes directly in templates
-- **No purple/indigo** anywhere — if you see `indigo-*` Tailwind classes, replace with `var(--color-accent)`
+- **No `@apply`** - utility classes directly in templates
+- **No purple/indigo** anywhere - if you see `indigo-*` Tailwind classes, replace with `var(--color-accent)`
 
 ## Project structure
 
 ```
-src/data/               — all content as typed TS (source of truth for copy)
-src/components/sections/ — one file per page section
-src/components/ui/       — ExperienceCard, ProjectCard, SkillGroup, SocialLink
+src/data/               - all content as typed TS (source of truth for copy)
+src/components/sections/ - one file per page section
+src/components/ui/       - ExperienceCard, ProjectCard, SkillGroup, SocialLink
 src/layouts/BaseLayout.astro
-src/pages/index.astro   — imports all sections in order
-src/pages/api/spotify.ts — serverless, prerender=false
-src/styles/global.css   — @import tailwindcss + :root vars + dot grid + orb keyframe
-public/resume.pdf        — linked from Hero (not yet added — user will drop it in)
-docs/spotify-setup.md   — Spotify OAuth setup instructions
+src/pages/index.astro   - imports all sections in order
+src/pages/api/spotify.ts - serverless, prerender=false
+src/styles/global.css   - @import tailwindcss + :root vars + dot grid + orb keyframe
+public/resume.pdf        - linked from Hero (not yet added - user will drop it in)
+docs/spotify-setup.md   - Spotify OAuth setup instructions
 ```
 
 ## Sections (in page order)
 
-1. **Hero** — name, role pills (Technical Lead / Senior SWE / Backend Engineering), bio, CTAs
-2. **Experience** — collapsible per role using `<details>`/`<summary>`, collapsed by default
-3. **Projects** — 3-col grid, data-driven from projects.ts
-4. **Skills** — pill badges, grouped by category
-5. **Education** — timeline style, same as Experience
-6. **Beyond the IDE** — Spotify now-playing card + Goodreads currently-reading + recently-read grid
-7. **Contact** — Formspree form + social links
+1. **Hero** - name, role pills (Technical Lead / Senior SWE / Backend Engineering), bio, CTAs
+2. **Experience** - collapsible per role using `<details>`/`<summary>`, collapsed by default
+3. **Projects** - 3-col grid, data-driven from projects.ts
+4. **Skills** - pill badges, grouped by category
+5. **Education** - timeline style, same as Experience
+6. **Beyond the IDE** - Spotify now-playing card + Goodreads currently-reading + recently-read grid
+7. **Contact** - Formspree form + social links
 
 ## Common tasks
 
@@ -80,19 +80,19 @@ Env vars: `SPOTIFY_CLIENT_ID`, `SPOTIFY_CLIENT_SECRET`, `SPOTIFY_REFRESH_TOKEN`.
 
 ## Critical rules
 
-- **Never fabricate content** — experience, projects, skills must come from the resume
+- **Never fabricate content** - experience, projects, skills must come from the resume
   (`/Users/savya/Downloads/Resume_Savyasachi_Jagadeeshan.pdf`) or explicit user input.
   Do not invent job titles, accomplishments, tech stacks, or project names.
-- **Never use indigo/purple** — accent is pastel blue (`#7eb8f7` dark / `#3b82c4` light).
+- **Never use indigo/purple** - accent is pastel blue (`#7eb8f7` dark / `#3b82c4` light).
 - **No emojis** unless explicitly asked.
-- The nav title is **"Savyasachi Jagadeeshan"** — not "Savy" or any other shorthand.
+- The nav title is **"Savyasachi Jagadeeshan"** - not "Savy" or any other shorthand.
 
 ## Dev commands
 
 ```bash
-npm run dev      # localhost:4321 — use this for all local work, has live reload
+npm run dev      # localhost:4321 - use this for all local work, has live reload
 npm run build    # production build → dist/client/ (Vercel adapter splits output here)
-npm run preview  # BROKEN — astro preview doesn't handle Vercel adapter output
+npm run preview  # BROKEN - astro preview doesn't handle Vercel adapter output
 ```
 
 Use Node.js 24.x locally so the Vercel adapter warning stays aligned with the deploy runtime.
@@ -101,6 +101,6 @@ Use Node.js 24.x locally so the Vercel adapter warning stays aligned with the de
 
 **Always use `npm run dev`** for local work. It has HMR and is ready immediately.
 
-Never use `npm run preview` — the Vercel adapter writes output to `dist/client/` instead
+Never use `npm run preview` - the Vercel adapter writes output to `dist/client/` instead
 of `dist/`, which breaks `astro preview`. If you need to verify a production build,
 use `npx serve dist/client -p 4322`, but there is almost never a reason to do this.

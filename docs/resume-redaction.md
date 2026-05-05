@@ -1,6 +1,6 @@
 # Resume Redaction
 
-`scripts/redact_resume.py` strips phone numbers from a resume PDF before publishing it to the site. The redacted copy is written to `public/resume.pdf` — the file the Hero "Download Resume" button links to.
+`scripts/redact_resume.py` strips phone numbers from a resume PDF before publishing it to the site. The redacted copy is written to `public/resume.pdf` - the file the Hero "Download Resume" button links to.
 
 ## Why
 

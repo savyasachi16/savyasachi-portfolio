@@ -47,7 +47,7 @@ import SectionHeading from '../ui/SectionHeading.astro';
           </div>
         </div>
         <div class="flex flex-col gap-3">
-          <span class="text-xs font-semibold uppercase tracking-widest" style="color: var(--color-text-muted);">Top Tracks — All Time</span>
+          <span class="text-xs font-semibold uppercase tracking-widest" style="color: var(--color-text-muted);">Top Tracks - All Time</span>
           <div id="top-tracks" class="spotify-surface flex flex-col p-2">
             {Array.from({ length: 5 }).map(() => (
               <div class="flex items-center gap-3 px-3 py-2 rounded-lg">
@@ -266,7 +266,7 @@ import SectionHeading from '../ui/SectionHeading.astro';
 
       if (currentlyReading?.length) {
         currentList.innerHTML = currentlyReading.map((book: any) => `
-          <a href="${esc(book.link)}" target="_blank" rel="noopener noreferrer" class="book-tile" title="${esc(book.title)} — ${esc(book.author)}">
+          <a href="${esc(book.link)}" target="_blank" rel="noopener noreferrer" class="book-tile" title="${esc(book.title)} - ${esc(book.author)}">
             ${book.cover
               ? `<img src="${esc(book.cover)}" alt="${esc(book.title)}" width="98" height="148" class="rounded-md w-full object-cover" style="box-shadow:0 2px 8px rgba(0,0,0,0.4); aspect-ratio: 2/3;" />`
               : `<div class="rounded-md w-full flex items-center justify-center text-xs text-center p-2" style="aspect-ratio: 2/3; background: var(--color-surface); color: var(--color-text-muted); border: 1px solid var(--color-border);">${esc(book.title)}</div>`}
@@ -278,7 +278,7 @@ import SectionHeading from '../ui/SectionHeading.astro';
 
       if (recentlyRead?.length) {
         readList.innerHTML = recentlyRead.map((book: any) => `
-          <a href="${esc(book.link)}" target="_blank" rel="noopener noreferrer" class="book-tile" title="${esc(book.title)} — ${esc(book.author)}">
+          <a href="${esc(book.link)}" target="_blank" rel="noopener noreferrer" class="book-tile" title="${esc(book.title)} - ${esc(book.author)}">
             ${book.cover
               ? `<img src="${esc(book.cover)}" alt="${esc(book.title)}" width="98" height="148" class="rounded-md w-full object-cover" style="box-shadow:0 2px 8px rgba(0,0,0,0.4); aspect-ratio: 2/3;" />`
               : `<div class="rounded-md w-full flex items-center justify-center text-xs text-center p-2" style="aspect-ratio: 2/3; background: var(--color-surface); color: var(--color-text-muted); border: 1px solid var(--color-border);">${esc(book.title)}</div>`}

@@ -11,7 +11,7 @@ from PIL import Image, ImageDraw, ImageFont
 ROOT = Path(__file__).resolve().parent.parent
 OUT = ROOT / 'public' / 'og.png'
 
-# Fonts — expects TTFs at /tmp/fonts-og or you can point these at your local copy.
+# Fonts - expects TTFs at /tmp/fonts-og or you can point these at your local copy.
 SYNE = Path('/tmp/fonts-og/Syne-Bold.ttf')
 DMSANS = Path('/tmp/fonts-og/DMSans.ttf')
 
@@ -35,7 +35,7 @@ def main() -> None:
         for y in range(0, H, 24):
             draw_overlay.ellipse((x, y, x + 1, y + 1), fill=(*BORDER, 255))
 
-    # Gradient orb — radial glow, top-left
+    # Gradient orb - radial glow, top-left
     orb_size = 700
     orb = Image.new('RGBA', (orb_size, orb_size), (0, 0, 0, 0))
     orb_draw = ImageDraw.Draw(orb)
@@ -82,7 +82,7 @@ def main() -> None:
         font=dmsans_reg,
     )
 
-    # Corner brand mark — small URL in bottom right
+    # Corner brand mark - small URL in bottom right
     url = 'savyasachi.dev'
     bbox = draw.textbbox((0, 0), url, font=dmsans_reg)
     url_w = bbox[2] - bbox[0]

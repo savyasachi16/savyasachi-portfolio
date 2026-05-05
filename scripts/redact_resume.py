@@ -42,7 +42,7 @@ def redact_pdf(input_path: str) -> None:
         if not matches:
             continue
 
-        # Search for each phone number string directly — redacts only that text rect
+        # Search for each phone number string directly - redacts only that text rect
         for match in PHONE_PATTERN.finditer(full_text):
             phone_str = match.group(0)
             hits = page.search_for(phone_str)
@@ -59,7 +59,7 @@ def redact_pdf(input_path: str) -> None:
     if redacted_count:
         print(f"Redacted {redacted_count} phone number instance(s) → {OUTPUT_PATH}")
     else:
-        print(f"No phone numbers found — saved clean copy to {OUTPUT_PATH}")
+        print(f"No phone numbers found - saved clean copy to {OUTPUT_PATH}")
 
 
 if __name__ == "__main__":

@@ -1,11 +1,11 @@
-# Agent Instructions — savyasachi.dev
+# Agent Instructions - savyasachi.dev
 
 This is the personal portfolio of Savyasachi Jagadeeshan (Savy), a Technical Lead and Senior Software Engineer.
 
 ## What this site is
 
 A read-only portfolio. No user accounts, no transactions, no dynamic data entry. The only live endpoints are:
-- `GET /api/spotify` — returns currently playing or recently played Spotify track (read-only)
+- `GET /api/spotify` - returns currently playing or recently played Spotify track (read-only)
 
 ## Content
 
