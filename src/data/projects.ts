@@ -10,29 +10,20 @@ export interface Project {
 
 export const projects: Project[] = [
   {
-    title: 'folio',
-    description: 'You\'re looking at it. This card is about the site that contains this card.',
-    techStack: ['Astro', 'Tailwind CSS', 'TypeScript'],
-    githubUrl: 'https://github.com/savyasachi16/folio',
-    liveUrl: 'https://savyasachi.dev',
-    featured: true,
-    color: '#7eb8f7',
-  },
-  {
-    title: 'lorekeeper',
-    description: 'LLM-curated Obsidian wiki built incrementally from PDFs and notes. Karpathy\'s LLM Wiki pattern.',
-    techStack: ['TypeScript', 'Claude Agent SDK', 'MCP'],
-    githubUrl: 'https://github.com/savyasachi16/lorekeeper',
-    featured: true,
-    color: '#f7e57e',
-  },
-  {
     title: 'ai-dotfiles',
     description: 'Cross-machine AI agent configuration for Mac and Linux.',
     techStack: ['Shell'],
     githubUrl: 'https://github.com/savyasachi16/ai-dotfiles',
     featured: true,
     color: '#f7a07e',
+  },
+  {
+    title: 'kriyaos',
+    description: 'Agentic personal OS.',
+    techStack: ['Goose', 'Mem0', 'Python'],
+    githubUrl: 'https://github.com/savyasachi16/kriyaos',
+    featured: true,
+    color: '#7ecff7',
   },
   {
     title: 'f5e',
@@ -51,11 +42,20 @@ export const projects: Project[] = [
     color: '#f77e9e',
   },
   {
-    title: 'kriyaos',
-    description: 'Agentic personal OS.',
-    techStack: ['Goose', 'Mem0', 'Python'],
-    githubUrl: 'https://github.com/savyasachi16/kriyaos',
+    title: 'lorekeeper',
+    description: 'LLM-curated Obsidian wiki built incrementally from PDFs and notes. Karpathy\'s LLM Wiki pattern.',
+    techStack: ['TypeScript', 'Claude Agent SDK', 'MCP'],
+    githubUrl: 'https://github.com/savyasachi16/lorekeeper',
     featured: true,
-    color: '#7ecff7',
+    color: '#f7e57e',
+  },
+  {
+    title: 'folio',
+    description: 'You\'re looking at it. This card is about the site that contains this card.',
+    techStack: ['Astro', 'Tailwind CSS', 'TypeScript'],
+    githubUrl: 'https://github.com/savyasachi16/folio',
+    liveUrl: 'https://savyasachi.dev',
+    featured: true,
+    color: '#7eb8f7',
   },
 ];
