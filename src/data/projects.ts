@@ -35,8 +35,8 @@ export const projects: Project[] = [
   },
   {
     title: 'vitals',
-    description: 'Personal Apple Health dashboard visualizing exported metrics. Built with Astro, React, Recharts, and SQLite.',
-    techStack: ['Astro', 'React', 'SQLite', 'Recharts'],
+    description: 'Personal Apple Health dashboard visualizing exported metrics. Astro + React + Recharts frontend on a Rust XML parser that streams the 1.3GB export into SQLite.',
+    techStack: ['Rust', 'Astro', 'React', 'SQLite', 'Recharts'],
     githubUrl: 'https://github.com/jsavyasachi/vitals',
     featured: true,
     color: '#f77e9e',
